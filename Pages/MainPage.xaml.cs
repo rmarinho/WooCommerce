@@ -12,6 +12,7 @@ namespace WooCommerce
 				return this.BindingContext as MainViewModel;
 			}
 		}
+
 		public MainPage ()
 		{
 			InitializeComponent ();

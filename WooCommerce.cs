@@ -1,19 +1,21 @@
-﻿using System;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
+using WooCommerce.Api;
 
 namespace WooCommerce
 {
 
 	public class App : Application
 	{
+		public static WooCommerceClient Client;
+		const string clientId = "ck_85fc8233163e4d288a876b02ad16451f";
+		const string clientKey = "cs_7ccf7a5345d3f647a19a4054bbc5431a";
+
 		public App ()
 		{
+
+			Client = new WooCommerceClient (clientId,clientKey);
+		
 			var page = new MainPage ();
 			MainPage = page;
 		}

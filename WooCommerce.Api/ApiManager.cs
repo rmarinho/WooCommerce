@@ -18,10 +18,7 @@ namespace WooCommerce.Api
 
 	public class WooCommerceClient
 	{
-		bool _isSecureConnection;
-		string _version;
 		string _appUrl;
-		static string _defaultVersion;
 		HttpClient _client;
 
 		public WooCommerceClient()
@@ -126,14 +123,14 @@ namespace WooCommerce.Api
 
 		public static string DefaultVersion
 		{
-			get { return _defaultVersion; }
-			set { _defaultVersion = value; }
+			get;
+			set;
 		}
 
 		public virtual string Version
 		{
-			get { return _version; }
-			set { _version = value; }
+			get;
+			set;
 		}
 
 	}

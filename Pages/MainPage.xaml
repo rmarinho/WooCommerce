@@ -10,15 +10,7 @@
 
 		<Label Text="{Binding StoreName}" Grid.Row="1" HorizontalOptions="Center"></Label>
 		<ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="2" IsVisible="{Binding IsBusy}" VerticalOptions="Start" HorizontalOptions="Center"></ActivityIndicator>
-		<ListView ItemsSource="{Binding Products}" Grid.Row="2">
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<ViewCell>
-						<Label Text="{Binding title}"></Label>
-					</ViewCell>
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
+	
 	</Grid>
 	</ContentPage.Content>
 </ContentPage>
