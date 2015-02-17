@@ -12,9 +12,9 @@
 								<RowDefinition Height="Auto">
 								</RowDefinition>
 							</Grid.RowDefinitions>
-							<Image Grid.Row="0" Source="{Binding images[0].src}" Aspect="AspectFit">
+							<Image Grid.Row="0" Source="{Binding Images[0].src}" Aspect="AspectFit">
 							</Image>
-							<Label Grid.Row="1" Text="{Binding title}" Font="Helvetica-Light" HorizontalOptions="Center">
+							<Label Grid.Row="1" Text="{Binding Title}" Font="Helvetica-Light" HorizontalOptions="Center">
 							</Label>
 						</Grid>
 					</ViewCell>

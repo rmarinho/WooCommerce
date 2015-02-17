@@ -14,9 +14,13 @@ namespace WooCommerce.Api
 	{
 		public static string Index = "wc-api/v2";
 		public static string Products = "wc-api/v2/products";
+		public static string Product = "wc-api/v2/products/{0}";
+		public static string ProductSku = "wc-api/v2/products/sku/{0}";
 		public static string Orders = "wc-api/v2/orders";
 		public static string OrdersCount = "wc-api/v2/orders/count";
 		public static string Reports = "wc-api/v2/reports";
+		public static string ReportSales = "wc-api/v2/reports/sales";
+		public static string ReportTopSellers = "wc-api/v2/reports/sales/top_sellers";
 	}
 
 	public class WooCommerceClient
@@ -51,11 +55,35 @@ namespace WooCommerce.Api
 		}
 
 
-		public async Task<List<Product>> GetReports()
+		public async Task<List<string>> GetReports()
 		{
 			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.Reports, null); 
 			var response = await ExecuteRequest (request);
-			var result = await ProcessResponse<List<Product>>(response);
+			var result = await ProcessResponse<List<string>>(response);
+			return result;
+		}
+
+		public async Task<List<TopSeller>> GetTopSellerReport()
+		{
+			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.ReportTopSellers, null); 
+			var response = await ExecuteRequest (request);
+			var result = await ProcessResponse<List<TopSeller>>(response);
+			return result;
+		}
+
+		public async Task<Product> GetProductBySku(string sku)
+		{
+			var request = PrepareRequest (HttpMethod.Get, string.Format(WooCommerceEndpoints.ProductSku,sku), null); 
+			var response = await ExecuteRequest (request);
+			var result = await ProcessResponse<Product>(response);
+			return result;
+		}
+
+		public async Task<Product> GetProductById(int id)
+		{
+			var request = PrepareRequest (HttpMethod.Get, string.Format(WooCommerceEndpoints.Product,id), null); 
+			var response = await ExecuteRequest (request);
+			var result = await ProcessResponse<Product>(response);
 			return result;
 		}
 

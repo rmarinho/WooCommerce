@@ -1,5 +1,48 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.ReportsPage">
 	<ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="0.15*" />
+				<RowDefinition Height="0.15*" />
+				<RowDefinition Height="0.5*" />
+				<RowDefinition Height="0.2*" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0" Padding="20,0,0,0">
+				<Label FontSize="25" Text="18,888€">
+				</Label>
+				<Label Text="Revenue">
+				</Label>
+			</StackLayout>
+			<StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="1" Padding="0,0,0,0">
+				<Label Text="RevenueChart">
+				</Label>
+			</StackLayout>
+			<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Padding="20,0,0,0">
+				<Label FontSize="25" Text="348">
+				</Label>
+				<Label Text="New Orders">
+				</Label>
+			</StackLayout>
+			<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Padding="0,0,0,0">
+				<Label FontSize="25" Text="50">
+				</Label>
+				<Label Text="New Customers">
+				</Label>
+			</StackLayout>
+
+			<ListView Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding TopSellerProducts}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ImageCell Text="{Binding Title}" ImageSource="{Binding FeaturedImage}">
+						</ImageCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</Grid>
 	</ContentPage.Content>
 </ContentPage>
