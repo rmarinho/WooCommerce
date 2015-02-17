@@ -7,9 +7,16 @@
 		<RowDefinition />
 		<RowDefinition />
 	</Grid.RowDefinitions>
-
-		<Label Text="{Binding StoreName}" Grid.Row="1" HorizontalOptions="Center"></Label>
-		<ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="2" IsVisible="{Binding IsBusy}" VerticalOptions="Start" HorizontalOptions="Center"></ActivityIndicator>
+	<Grid.ColumnDefinitions>
+		<ColumnDefinition />
+		<ColumnDefinition />
+	</Grid.ColumnDefinitions>
+		<StackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
+			<Label Text="Orders"></Label>
+			<Label Text="{Binding OrdersCount}"></Label>
+		</StackLayout>
+		<Label Text="{Binding StoreName}" Grid.Row="1" Grid.ColumnSpan="2"  HorizontalOptions="Center"></Label>
+		<ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="2" Grid.ColumnSpan="2" IsVisible="{Binding IsBusy}" VerticalOptions="Start" HorizontalOptions="Center"></ActivityIndicator>
 	
 	</Grid>
 	</ContentPage.Content>

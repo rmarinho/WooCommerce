@@ -14,6 +14,9 @@ namespace WooCommerce.Api
 	{
 		public static string Index = "wc-api/v2";
 		public static string Products = "wc-api/v2/products";
+		public static string Orders = "wc-api/v2/orders";
+		public static string OrdersCount = "wc-api/v2/orders/count";
+		public static string Reports = "wc-api/v2/reports";
 	}
 
 	public class WooCommerceClient
@@ -47,11 +50,36 @@ namespace WooCommerce.Api
 
 		}
 
+
+		public async Task<List<Product>> GetReports()
+		{
+			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.Reports, null); 
+			var response = await ExecuteRequest (request);
+			var result = await ProcessResponse<List<Product>>(response);
+			return result;
+		}
+
 		public async Task<List<Product>> GetProducts()
 		{
 			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.Products, null); 
 			var response = await ExecuteRequest (request);
 			var result = await ProcessResponse<List<Product>>(response);
+			return result;
+		}
+
+		public async Task<List<Order>> GetOrders()
+		{
+			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.Orders, null); 
+			var response = await ExecuteRequest (request);
+			var result = await ProcessResponse<List<Order>>(response);
+			return result;
+		}
+
+		public async Task<int> GetOrdersCount()
+		{
+			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.OrdersCount, null); 
+			var response = await ExecuteRequest (request);
+			var result = await ProcessResponse<int>(response);
 			return result;
 		}
 

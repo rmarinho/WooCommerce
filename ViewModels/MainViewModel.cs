@@ -14,6 +14,11 @@ namespace WooCommerce
 		{
 			IsBusy = true;
 			var result = await App.Client.GetStoreInfo ();
+			var ordersCountresult = await App.Client.GetOrdersCount ();
+
+			for (int i = 0; i < ordersCountresult; i++) {
+				OrdersCount++;
+			}
 			StoreName = result.Name;
 			IsBusy = false;
 		}
@@ -22,6 +27,12 @@ namespace WooCommerce
 		public string StoreName {
 			get{ return storeName; }
 			set{ SetProperty (ref storeName, value); }
+		}
+
+		int ordersCount = 0;
+		public int OrdersCount {
+			get{ return ordersCount; }
+			set{ SetProperty (ref ordersCount, value); }
 		}
 
 		public string PageName {

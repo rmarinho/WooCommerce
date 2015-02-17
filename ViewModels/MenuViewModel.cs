@@ -11,6 +11,7 @@ namespace WooCommerce
 		{
 			MenuItems.Add (new MenuItem { Title = "Start", Navigate = (md) => md.Detail = new NavigationPage(new MainPage()) });
 			MenuItems.Add (new MenuItem { Title = "Products", Navigate = (md) => md.Detail = new NavigationPage(new ProductsPage()) });
+			MenuItems.Add (new MenuItem { Title = "Orders", Navigate = (md) => md.Detail = new NavigationPage(new OrdersPage()) });
 		}
 
 		ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
@@ -28,7 +29,7 @@ namespace WooCommerce
 					if (selectedMenuItem != null) {
 						var mdp = (MasterDetailPage)Application.Current.MainPage;
 						if (mdp != null) {
-							selectedMenuItem.Navigate (mdp);
+							selectedMenuItem.Navigate (mdp	);
 							SelectedMenuItem = null;
 							mdp.IsPresented = false;
 						}
