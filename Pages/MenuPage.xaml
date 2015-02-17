@@ -4,7 +4,7 @@
 		<ListView ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedMenuItem}">
 		<ListView.ItemTemplate>
 			<DataTemplate>
-				<EntryCell Text="{Binding Title}"></EntryCell>
+				<TextCell Text="{Binding Title}"></TextCell>
 			</DataTemplate>
 		</ListView.ItemTemplate>
 		</ListView>
