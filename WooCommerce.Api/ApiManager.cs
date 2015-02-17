@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace WooCommerce.Api
 {
@@ -12,6 +13,7 @@ namespace WooCommerce.Api
 	public class WooCommerceEndpoints
 	{
 		public static string Index = "wc-api/v2";
+		public static string Products = "wc-api/v2/products";
 	}
 
 	public class WooCommerceClient
@@ -25,7 +27,7 @@ namespace WooCommerce.Api
 		public WooCommerceClient()
 		{
 			_version = _defaultVersion;
-			_appUrl = "http://xamstore.azurewebsites.net/";
+			_appUrl = "https://xamstore.azurewebsites.net/";
 			_client = new HttpClient ();
 			_client.BaseAddress = new Uri(_appUrl);
 		}
@@ -42,8 +44,18 @@ namespace WooCommerce.Api
 			AppId = appId;
 			AppSecret = appSecret;
 			_client.BaseAddress = new Uri(_appUrl);
-			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Format("{0}:{1}", appId, appSecret))));
+			var byteArray = Encoding.UTF8.GetBytes(string.Format("{0}:{1}", appId, appSecret));
 
+			_client.DefaultRequestHeaders.Authorization =  new AuthenticationHeaderValue("Basic",  Convert.ToBase64String(byteArray));
+
+		}
+
+		public async Task<List<Product>> GetProducts()
+		{
+			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.Products, null); 
+			var response = await ExecuteRequest (request);
+			var result = await ProcessResponse<List<Product>>(response);
+			return result;
 		}
 
 		public async Task<Store> GetStoreInfo()

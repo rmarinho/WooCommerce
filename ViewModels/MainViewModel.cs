@@ -3,6 +3,7 @@
 using Xamarin.Forms;
 using WooCommerce.Api;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace WooCommerce
 {
@@ -22,6 +23,11 @@ namespace WooCommerce
 			IsBusy = true;
 			var result = await client.GetStoreInfo ();
 			StoreName = result.Name;
+			var productsService = await client.GetProducts ();
+			Products.Clear ();
+			foreach (var item in productsService) {
+				Products.Add (item);
+			}
 			IsBusy = false;
 		}
 
@@ -30,6 +36,15 @@ namespace WooCommerce
 			get{ return storeName; }
 			set{ SetProperty (ref storeName, value); }
 		}
+
+
+		ObservableCollection<Product> products = new ObservableCollection<Product>();
+		public ObservableCollection<Product> Products {
+			get{ return products; }
+			set{ SetProperty (ref products, value); }
+		}
+
+
 	}
 }
 
