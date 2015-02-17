@@ -12,6 +12,9 @@
 				<ColumnDefinition />
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
+
+		
+
 			<StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0" Padding="20,0,0,0">
 				<Label FontSize="25" Text="18,888€">
 				</Label>
@@ -19,8 +22,11 @@
 				</Label>
 			</StackLayout>
 			<StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="1" Padding="0,0,0,0">
-				<Label Text="RevenueChart">
-				</Label>
+
+				<Picker x:Name="filterOptions"></Picker>
+				<DatePicker x:Name="filterOptionMinDate" Date="{Binding MinDate}" MaximumDate="{Binding MaxDate}"></DatePicker>
+				<DatePicker x:Name="filterOptionMaxDate" Date="{Binding MaxDate}" MinimumDate="{Binding MinDate}"></DatePicker>
+
 			</StackLayout>
 			<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Padding="20,0,0,0">
 				<Label FontSize="25" Text="348">
