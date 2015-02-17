@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using WooCommerce.Api;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WooCommerce
 {
@@ -15,16 +16,21 @@ namespace WooCommerce
 			minDate = maxDate.AddDays (-7);
 			GetData ();
 		}
-
+		SalesReport currentSalesReport;
+		List<Order> currentOrders;
 		public async Task GetData(bool useFilters = false)
 		{
 			IsBusy = true;
 			var reports = await App.Client.GetReports ();
 			var topSellers = new List<TopSeller> ();
+			var orders = new List<Order> ();
 			if (useFilters) {
 				topSellers = await App.Client.GetTopSellerReport (PeriodFilter, MinDate, MaxDate);
 			} else {
 				topSellers = await App.Client.GetTopSellerReport ();
+				currentSalesReport = await App.Client.GetSalesReport ();
+				currentOrders = await App.Client.GetOrders ();
+				UpdateTotals ();
 			}
 
 			TopSellerProducts.Clear ();
@@ -35,6 +41,26 @@ namespace WooCommerce
 			IsBusy = false;
 		}
 
+		void UpdateTotals(){
+			if (currentOrders != null) {
+				for (int i = 0; i < currentOrders.Count; i++) {
+				
+					if (currentOrders [i].status == "processing") {
+						ProcessingOrdersCount++;
+					}
+					if (currentOrders [i].status == "pending") {
+						PendingOrdersCount++;
+					}
+					if (currentOrders [i].status == "on-hold") {
+						PendingOrdersCount++;
+					}
+					if (currentOrders [i].status == "completed") {
+						CompletedOrdersCount++;
+					}
+				}	
+			
+			}
+		}
 
 		WooCommerceFilterPeriod periodFilter = WooCommerceFilterPeriod.None;
 		public WooCommerceFilterPeriod PeriodFilter {
@@ -72,7 +98,6 @@ namespace WooCommerce
 			}
 		}
 
-
 		List<WooCommerceFilterPeriod> periodFilterOptions = new List<WooCommerceFilterPeriod>();
 		public List<WooCommerceFilterPeriod> PeriodFilterOptions {
 			get{ return periodFilterOptions; }
@@ -86,6 +111,37 @@ namespace WooCommerce
 			set{ SetProperty (ref topSellerProducts, value); }
 		}
 
+		int pendingOrdersCount = 0;
+		public int PendingOrdersCount {
+			get{ 
+				return pendingOrdersCount;
+			}
+			set{ SetProperty (ref pendingOrdersCount, value); }
+		}
+
+		int processingOrdersCount = 0;
+		public int ProcessingOrdersCount {
+			get{ 
+				return processingOrdersCount;
+			}
+			set{ SetProperty (ref processingOrdersCount, value); }
+		}
+
+		int heldOrdersCount = 0;
+		public int HeldOrdersCount {
+			get{ 
+				return heldOrdersCount;
+			}
+			set{ SetProperty (ref heldOrdersCount, value); }
+		}
+
+		int completedOrdersCount = 0;
+		public int CompletedOrdersCount {
+			get{ 
+				return completedOrdersCount;
+			}
+			set{ SetProperty (ref completedOrdersCount, value); }
+		}
 
 		public string PageName {
 			get {

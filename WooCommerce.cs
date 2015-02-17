@@ -16,8 +16,8 @@ namespace WooCommerce
 			Client = new WooCommerceClient (clientId,clientKey);
 			var mdMain = new MasterDetailPage ();
 			//binding title doesn+t work.
-			mdMain.Master = new MenuPage () { Title ="STart"};
-			mdMain.Detail = new NavigationPage(new MainPage());
+			mdMain.Master = new MenuPage () { Title ="Start"};
+			mdMain.Detail = new NavigationPage(new ReportsPage());
 			MainPage = mdMain;
 		}
 

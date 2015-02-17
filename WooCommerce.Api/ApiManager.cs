@@ -38,7 +38,8 @@ namespace WooCommerce.Api
 		public static string ProductSku = "wc-api/v2/products/sku/{0}";
 		public static string Orders = "wc-api/v2/orders";
 		public static string OrdersCount = "wc-api/v2/orders/count";
-		public static string Reports = "wc-api/v2/reports";
+		public static string OrdersStatuses = "wc-api/v2/orders/statuses";
+			public static string Reports = "wc-api/v2/reports";
 		public static string ReportSales = "wc-api/v2/reports/sales";
 		public static string ReportTopSellers = "wc-api/v2/reports/sales/top_sellers";
 	}
@@ -86,20 +87,20 @@ namespace WooCommerce.Api
 		public async Task<List<TopSeller>> GetTopSellerReport(WooCommerceFilterPeriod period = default(WooCommerceFilterPeriod), 
 			DateTime minDate = default(DateTime), DateTime maxDate = default(DateTime))
 		{
-			var parameters = new Dictionary<string,string> ();
-			if (period != WooCommerceFilterPeriod.None) {
-				parameters.Add (WooCommerceFilter.Period, period.ToString ().ToLower ());
-			} else {
-				if (minDate != default (DateTime)) {
-					parameters.Add (WooCommerceFilter.MinDate, minDate.ToString ("YYYY-MM-dd"));
-				}
-				if (maxDate != default (DateTime)) {
-					parameters.Add (WooCommerceFilter.MaxDate, maxDate.ToString ("YYYY-MM-dd"));
-				}
-			}
+			var parameters = HandleFilters (period, minDate, maxDate);
 			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.ReportTopSellers, parameters); 
 			var response = await ExecuteRequest (request);
 			var result = await ProcessResponse<List<TopSeller>>(response);
+			return result;
+		}
+
+		public async Task<SalesReport> GetSalesReport(WooCommerceFilterPeriod period = default(WooCommerceFilterPeriod), 
+			DateTime minDate = default(DateTime), DateTime maxDate = default(DateTime))
+		{
+			var parameters = HandleFilters (period, minDate, maxDate);
+			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.ReportSales, parameters); 
+			var response = await ExecuteRequest (request);
+			var result = await ProcessResponse<SalesReport>(response);
 			return result;
 		}
 
@@ -140,6 +141,14 @@ namespace WooCommerce.Api
 			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.OrdersCount, null); 
 			var response = await ExecuteRequest (request);
 			var result = await ProcessResponse<int>(response);
+			return result;
+		}
+
+		public async Task<OrderStatus> GetOrdersStatuses()
+		{
+			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.OrdersStatuses, null); 
+			var response = await ExecuteRequest (request);
+			var result = await ProcessResponse<OrderStatus>(response);
 			return result;
 		}
 
@@ -198,12 +207,25 @@ namespace WooCommerce.Api
 			return default(T);
 		}
 
-		private string ToQueryString(Dictionary<string,string> parameters)
+		static Dictionary<string, string> HandleFilters (WooCommerceFilterPeriod period, DateTime minDate, DateTime maxDate)
 		{
-//			var array = (from key in nvc.Keys
-//				from value in nvc.GetValues(key)
-//				select string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(value)))
-//				.ToArray();
+			var parameters = new Dictionary<string, string> ();
+			if (period != WooCommerceFilterPeriod.None) {
+				parameters.Add (WooCommerceFilter.Period, period.ToString ().ToLower ());
+			}
+			else {
+				if (minDate != default(DateTime)) {
+					parameters.Add (WooCommerceFilter.MinDate, minDate.ToString ("YYYY-MM-dd"));
+				}
+				if (maxDate != default(DateTime)) {
+					parameters.Add (WooCommerceFilter.MaxDate, maxDate.ToString ("YYYY-MM-dd"));
+				}
+			}
+			return parameters;
+		}
+
+		string ToQueryString(Dictionary<string,string> parameters)
+		{
 			var array = new List<string> ();
 			foreach (var parameter in parameters) {
 				array.Add (string.Format ("{0}={1}",parameter.Key,parameter.Value));
