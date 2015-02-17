@@ -5,10 +5,9 @@ namespace WooCommerce
 {
 	public class MainViewModel : BaseViewModel
 	{
-	
 		public MainViewModel ()
 		{
-	
+			GetData ();
 		}
 
 		public async Task GetData()
@@ -25,10 +24,11 @@ namespace WooCommerce
 			set{ SetProperty (ref storeName, value); }
 		}
 
-
-	
-
-
+		public string PageName {
+			get {
+				return "Overview";
+			}
+		}
 	}
 }
 

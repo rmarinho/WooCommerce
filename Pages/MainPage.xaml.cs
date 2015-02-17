@@ -19,11 +19,6 @@ namespace WooCommerce
 			this.BindingContext = new MainViewModel ();
 		}
 
-		protected override async void OnAppearing ()
-		{
-			await ViewModel.GetData ();
-			base.OnAppearing ();
-		}
 	}
 }
 

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace WooCommerce.Api
 {
 
-	public class WooCommerceEndpoints
+	public static class WooCommerceEndpoints
 	{
 		public static string Index = "wc-api/v2";
 		public static string Products = "wc-api/v2/products";
@@ -23,7 +23,7 @@ namespace WooCommerce.Api
 
 		public WooCommerceClient()
 		{
-			_version = _defaultVersion;
+			Version = DefaultVersion;
 			_appUrl = "https://xamstore.azurewebsites.net/";
 			_client = new HttpClient ();
 			_client.BaseAddress = new Uri(_appUrl);
@@ -60,6 +60,7 @@ namespace WooCommerce.Api
 			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.Index, null); 
 			var response = await ExecuteRequest (request);
 			var result = await ProcessResponse<Store>(response);
+			Version = result.wc_version;
 			return result;
 		}
 

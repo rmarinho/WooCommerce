@@ -13,11 +13,12 @@ namespace WooCommerce
 
 		public App ()
 		{
-
 			Client = new WooCommerceClient (clientId,clientKey);
-		
-			var page = new MainPage ();
-			MainPage = page;
+			var mdMain = new MasterDetailPage ();
+			//binding title doesn+t work.
+			mdMain.Master = new MenuPage () { Title ="STart"};
+			mdMain.Detail = new NavigationPage(new MainPage());
+			MainPage = mdMain;
 		}
 
 		protected override void OnStart ()

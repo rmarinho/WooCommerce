@@ -9,6 +9,7 @@ namespace WooCommerce
 	{
 		public ProductsViewModel ()
 		{
+			GetData ();
 		}
 
 
@@ -28,6 +29,12 @@ namespace WooCommerce
 		public ObservableCollection<Product> Products {
 			get{ return products; }
 			set{ SetProperty (ref products, value); }
+		}
+
+		public string PageName {
+			get {
+				return "Products";
+			}
 		}
 	}
 }
