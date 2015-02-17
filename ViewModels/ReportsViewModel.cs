@@ -16,7 +16,7 @@ namespace WooCommerce
 		{
 			IsBusy = true;
 			var reports = await App.Client.GetReports ();
-			var topSellers = await App.Client.GetTopSellerReport ();
+			var topSellers = await App.Client.GetTopSellerReport (WooCommerceFilterPeriod.Week);
 
 			foreach (var topSeller in topSellers) {
 				var product = await App.Client.GetProductById (topSeller.ProductId);

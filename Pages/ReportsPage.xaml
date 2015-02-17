@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.ReportsPage">
+<ContentPage Title="{Binding PageName}" IsBusy="{Binding IsBusy}" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.ReportsPage">
 	<ContentPage.Content>
 		<Grid>
 			<Grid.RowDefinitions>
@@ -34,15 +34,37 @@
 				<Label Text="New Customers">
 				</Label>
 			</StackLayout>
-
 			<ListView Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding TopSellerProducts}">
 				<ListView.ItemTemplate>
 					<DataTemplate>
-						<ImageCell Text="{Binding Title}" ImageSource="{Binding FeaturedImage}">
+						<ImageCell Text="{Binding Title}" Detail="{Binding TotalSales}" ImageSource="{Binding FeaturedImage}">
 						</ImageCell>
 					</DataTemplate>
 				</ListView.ItemTemplate>
 			</ListView>
+			<Grid Grid.Row="3" Grid.ColumnSpan="2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Label Text="207" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="22">
+				</Label>
+				<Label Text="Processing Orders" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" TextColor="Gray">
+				</Label>
+				<Label Text="28" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="22">
+				</Label>
+				<Label Text="Pending Orders" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" TextColor="Gray">
+				</Label>
+				<Label Text="1" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="22">
+				</Label>
+				<Label Text="Held Orders" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" TextColor="Gray">
+				</Label>
+			</Grid>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>

@@ -63,7 +63,8 @@ namespace WooCommerce.Api
 		public int download_expiry { get; set; }
 		public string download_type { get; set; }
 		public string purchase_note { get; set; }
-		public int total_sales { get; set; }
+		[JsonProperty("total_sales")]
+		public int TotalSales { get; set; }
 		public List<object> variations { get; set; }
 		public List<object> parent { get; set; }
 	}

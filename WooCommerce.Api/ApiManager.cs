@@ -10,6 +10,26 @@ using System.Collections.Generic;
 namespace WooCommerce.Api
 {
 
+
+	public enum WooCommerceFilterPeriod
+	{
+		None = 0,
+		Week = 1,
+		Month = 2,
+		// Analysis disable once InconsistentNaming
+		Last_month = 3,
+		Year = 4,
+
+	}
+
+	public static class WooCommerceFilter
+	{
+		public static string Period = "filter[period]";
+		public static string MinDate = "filter[date_min]";
+		public static string MaxDate = "filter[date_max]";
+
+	}
+
 	public static class WooCommerceEndpoints
 	{
 		public static string Index = "wc-api/v2";
@@ -63,9 +83,21 @@ namespace WooCommerce.Api
 			return result;
 		}
 
-		public async Task<List<TopSeller>> GetTopSellerReport()
+		public async Task<List<TopSeller>> GetTopSellerReport(WooCommerceFilterPeriod period = default(WooCommerceFilterPeriod), 
+			DateTime minDate = default(DateTime), DateTime maxDate = default(DateTime))
 		{
-			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.ReportTopSellers, null); 
+			var parameters = new Dictionary<string,string> ();
+			if (period != WooCommerceFilterPeriod.None) {
+				parameters.Add (WooCommerceFilter.Period, period.ToString ().ToLower ());
+			} else {
+				if (minDate != default (DateTime)) {
+					parameters.Add (WooCommerceFilter.MinDate, minDate.ToString ("YYYY-MM-dd"));
+				}
+				if (maxDate != default (DateTime)) {
+					parameters.Add (WooCommerceFilter.MaxDate, maxDate.ToString ("YYYY-MM-dd"));
+				}
+			}
+			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.ReportTopSellers, parameters); 
 			var response = await ExecuteRequest (request);
 			var result = await ProcessResponse<List<TopSeller>>(response);
 			return result;
@@ -126,8 +158,11 @@ namespace WooCommerce.Api
 			return response;
 		}
 
-		HttpRequestMessage PrepareRequest(HttpMethod httpMethod, string path, object parameters)
+		HttpRequestMessage PrepareRequest(HttpMethod httpMethod, string path, Dictionary<string,string> parameters)
 		{
+			if (parameters != null && parameters.Count > 0) {
+				path += ToQueryString (parameters);
+			}
 			var request = new HttpRequestMessage (httpMethod,path);
 			return request;
 		}
@@ -161,6 +196,19 @@ namespace WooCommerce.Api
 				//TODO:handle this
 			}
 			return default(T);
+		}
+
+		private string ToQueryString(Dictionary<string,string> parameters)
+		{
+//			var array = (from key in nvc.Keys
+//				from value in nvc.GetValues(key)
+//				select string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(value)))
+//				.ToArray();
+			var array = new List<string> ();
+			foreach (var parameter in parameters) {
+				array.Add (string.Format ("{0}={1}",parameter.Key,parameter.Value));
+			}
+			return "?" + string.Join("&", array);
 		}
 
 		public string AccessToken {
