@@ -17,14 +17,17 @@ namespace WooCommerce.Api
 		public bool downloadable { get; set; }
 
 		public string permalink { get; set; }
-		public string sku { get; set; }
-		public string price { get; set; }
+		[JsonProperty("sku")]
+		public string SKU { get; set; }
+		[JsonProperty("price")]
+		public string Price { get; set; }
 		public string regular_price { get; set; }
 		public object sale_price { get; set; }
 		public string price_html { get; set; }
 		public bool taxable { get; set; }
 		public string tax_status { get; set; }
-		public string tax_class { get; set; }
+		[JsonProperty("tax_class")]
+		public string TaxClass { get; set; }
 		public bool managing_stock { get; set; }
 		public int stock_quantity { get; set; }
 		public bool in_stock { get; set; }
@@ -52,7 +55,7 @@ namespace WooCommerce.Api
 		public List<object> cross_sell_ids { get; set; }
 		public int parent_id { get; set; }
 		public List<string> categories { get; set; }
-		public List<object> tags { get; set; }
+		public List<string> tags { get; set; }
 		[JsonProperty("images")]
 		public List<Image> Images { get; set; }
 		[JsonProperty("featured_src")]
@@ -67,6 +70,13 @@ namespace WooCommerce.Api
 		public int TotalSales { get; set; }
 		public List<object> variations { get; set; }
 		public List<object> parent { get; set; }
+
+		public string Categories {
+			get { return categories == null ? "" : String.Join (",", categories); }
+		}
+		public string Tags {
+			get { return tags == null ? "" : String.Join (",", tags); }
+		}
 	}
 }
 

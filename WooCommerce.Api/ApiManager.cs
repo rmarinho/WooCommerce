@@ -14,12 +14,12 @@ namespace WooCommerce.Api
 	public enum WooCommerceFilterPeriod
 	{
 		None = 0,
-		Week = 1,
-		Month = 2,
+		Day = 1,
+		Week = 2,
+		Month = 3,
 		// Analysis disable once InconsistentNaming
-		Last_month = 3,
-		Year = 4,
-
+		Last_month = 4,
+		Year = 5,
 	}
 
 	public static class WooCommerceFilter
@@ -55,6 +55,7 @@ namespace WooCommerce.Api
 			_appUrl = "https://xamstore.azurewebsites.net/";
 			_client = new HttpClient ();
 			_client.BaseAddress = new Uri(_appUrl);
+			Currency = "€";
 		}
 
 		public WooCommerceClient(string appId, string appSecret)
@@ -260,6 +261,11 @@ namespace WooCommerce.Api
 			set;
 		}
 
+		public string Currency
+		{
+			get;
+			set;
+		}
 	}
 }
 

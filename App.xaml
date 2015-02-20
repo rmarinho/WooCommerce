@@ -1,0 +1,21 @@
+﻿<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.App">
+	<Application.Resources>
+		<ResourceDictionary>
+			<Style x:Key="ProductPropertyLabelStyle" TargetType="Label">
+				<Setter Property="VerticalOptions" Value="Center" />
+				<Setter Property="HorizontalOptions" Value="Start" />
+				<Setter Property="FontAttributes" Value="Bold" />
+				<Setter Property="TextColor" Value="Gray" />
+				<Setter Property="FontFamily" Value="HelveticaNeue-Light">
+				</Setter>
+			</Style>
+			<Style x:Key="ProductPropertyValueStyle" TargetType="Label">
+				<Setter Property="VerticalOptions" Value="Center" />
+				<Setter Property="HorizontalOptions" Value="End" />
+				<Setter Property="TextColor" Value="Gray" />
+				<Setter Property="FontFamily" Value="HelveticaNeue-Light">
+				</Setter>
+			</Style>
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>

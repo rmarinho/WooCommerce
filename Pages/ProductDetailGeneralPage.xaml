@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage Title="General" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.ProductDetailGeneralPage">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+  
+    </ResourceDictionary>
+  </ContentPage.Resources>
+	<ContentPage.Content>
+
+	<Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="4*"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition></ColumnDefinition>
+			<ColumnDefinition></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+
+		<Image Source="{Binding Product.FeaturedImage}" Grid.ColumnSpan="2"></Image>
+		<Label Grid.Row="1" BackgroundColor="#eee" Text="General" TextColor="Gray" Grid.ColumnSpan="2"></Label>
+
+		<Label Grid.Row="2" Text="Tags" Style="{StaticResource ProductPropertyLabelStyle}"></Label>
+		<Label Grid.Row="2" Grid.Column="1" Text="{Binding Product.Tags}" Style="{StaticResource ProductPropertyValueStyle}"></Label>
+
+		<Label Grid.Row="3" Text="Categories" Style="{StaticResource ProductPropertyLabelStyle}"></Label>
+		<Label Grid.Row="3" Grid.Column="1" Text="{Binding Product.Categories}" Style="{StaticResource ProductPropertyValueStyle}"></Label>
+
+		<Label Grid.Row="4" Text="SKU" Style="{StaticResource ProductPropertyLabelStyle}"></Label>
+		<Label Grid.Row="4" Grid.Column="1" Text="{Binding Product.SKU}" Style="{StaticResource ProductPropertyValueStyle}"></Label>
+
+		<Label Grid.Row="5" Text="Price" Style="{StaticResource ProductPropertyLabelStyle}"></Label>
+		<Label Grid.Row="5" Grid.Column="1" Text="{Binding Product.Price}" Style="{StaticResource ProductPropertyValueStyle}"></Label>
+
+		<Label Grid.Row="6" Text="Tax Class" Style="{StaticResource ProductPropertyLabelStyle}"></Label>
+		<Label Grid.Row="6" Grid.Column="1" Text="{Binding Product.TaxClass}" Style="{StaticResource ProductPropertyValueStyle}"></Label>
+	
+	</Grid>
+	</ContentPage.Content>
+</ContentPage>

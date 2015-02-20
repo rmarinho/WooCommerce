@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using WooCommerce.Api;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace WooCommerce
 {
@@ -11,11 +12,12 @@ namespace WooCommerce
 	{
 		public ReportsViewModel ()
 		{
-			periodFilterOptions = new List<WooCommerceFilterPeriod> {WooCommerceFilterPeriod.Week, WooCommerceFilterPeriod.Month, WooCommerceFilterPeriod.Year};
+			periodFilterOptions = new List<WooCommerceFilterPeriod> {WooCommerceFilterPeriod.Day, WooCommerceFilterPeriod.Week, WooCommerceFilterPeriod.Month, WooCommerceFilterPeriod.Year};
 			maxDate = DateTime.Now.Date;
 			minDate = maxDate.AddDays (-7);
 			GetData ();
 		}
+
 		SalesReport currentSalesReport;
 		List<Order> currentOrders;
 		public async Task GetData(bool useFilters = false)
@@ -42,6 +44,14 @@ namespace WooCommerce
 		}
 
 		void UpdateTotals(){
+			if (currentSalesReport != null) {
+				for (int i = 0; i < currentSalesReport.total_orders; i++) {
+					NewOrdersCount++;
+				}
+				AverageSales = currentSalesReport.average_sales;
+				TotalSales = currentSalesReport.total_sales;
+				periodFilter = Extensions.ParseEnum<WooCommerceFilterPeriod> (currentSalesReport.totals_grouped_by);
+			}
 			if (currentOrders != null) {
 				for (int i = 0; i < currentOrders.Count; i++) {
 				
@@ -141,6 +151,44 @@ namespace WooCommerce
 				return completedOrdersCount;
 			}
 			set{ SetProperty (ref completedOrdersCount, value); }
+		}
+
+		int newOrdersCount = 0;
+		public int NewOrdersCount {
+			get{ 
+				return newOrdersCount;
+			}
+			set{ SetProperty (ref newOrdersCount, value); }
+		}
+
+		string totalSales = "";
+		public string TotalSales {
+			get{ 
+				return string.Format("{0} {1}",totalSales, App.Client.Currency);
+			}
+			set{ SetProperty (ref totalSales, value); }
+		}
+
+
+		string averageSales = "";
+		public string AverageSales {
+			get{ 
+				return string.Format("{0:C}",averageSales);
+			}
+			set{ SetProperty (ref averageSales, value); }
+		}
+
+		Product selectedProduct = null;
+		public Product SelectedProduct {
+			get{ return selectedProduct; }
+			set{ 
+				if(selectedProduct != value) {
+					SetProperty (ref selectedProduct, value);
+					var detailPage = new ProductDetailPage();
+					detailPage.ViewModel.Product = selectedProduct;
+					App.Navigation.PushAsync (detailPage);
+				}
+			}
 		}
 
 		public string PageName {

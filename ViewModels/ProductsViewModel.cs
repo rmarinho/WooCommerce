@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using WooCommerce.Api;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace WooCommerce
 {
@@ -11,7 +12,6 @@ namespace WooCommerce
 		{
 			GetData ();
 		}
-
 
 		public async Task GetData()
 		{
@@ -24,6 +24,18 @@ namespace WooCommerce
 			IsBusy = false;
 		}
 
+		Product selectedProduct = null;
+		public Product SelectedProduct {
+			get{ return selectedProduct; }
+			set{ 
+				if(selectedProduct != value) {
+					SetProperty (ref selectedProduct, value);
+					var detailPage = new ProductDetailPage();
+					detailPage.ViewModel.Product = selectedProduct;
+					App.Navigation.PushAsync (detailPage);
+				}
+			}
+		}
 
 		ObservableCollection<Product> products = new ObservableCollection<Product>();
 		public ObservableCollection<Product> Products {

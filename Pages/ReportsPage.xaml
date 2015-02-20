@@ -16,12 +16,12 @@
 		
 
 			<StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0" Padding="20,0,0,0">
-				<Label FontSize="25" Text="18,888€">
+				<Label FontSize="25" Text="{Binding TotalSales}">
 				</Label>
 				<Label Text="Revenue">
 				</Label>
 			</StackLayout>
-			<StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="1" Padding="0,0,0,0">
+			<StackLayout Orientation="Vertical" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Padding="0,0,0,0">
 
 				<Picker x:Name="filterOptions"></Picker>
 				<DatePicker x:Name="filterOptionMinDate" Date="{Binding MinDate}" MaximumDate="{Binding MaxDate}"></DatePicker>
@@ -29,24 +29,43 @@
 
 			</StackLayout>
 			<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Padding="20,0,0,0">
-				<Label FontSize="25" Text="348">
+				<Label FontSize="25" Text="{Binding NewOrdersCount}">
 				</Label>
 				<Label Text="New Orders">
 				</Label>
 			</StackLayout>
-			<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Padding="0,0,0,0">
+<!--			<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Padding="0,0,0,0">
 				<Label FontSize="25" Text="{ Binding NewCustomers}">
 				</Label>
 				<Label Text="New Customers">
 				</Label>
-			</StackLayout>
+			</StackLayout>-->
 			<ListView Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding TopSellerProducts}">
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<ImageCell Text="{Binding Title}" Detail="{Binding TotalSales}" ImageSource="{Binding FeaturedImage}">
-						</ImageCell>
-					</DataTemplate>
-				</ListView.ItemTemplate>
+					<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<Grid Padding="0,2,0,10">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*">
+								</RowDefinition>
+								<RowDefinition Height="1">
+								</RowDefinition>
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto">
+								</ColumnDefinition>
+								<ColumnDefinition>
+								</ColumnDefinition>
+							</Grid.ColumnDefinitions>
+							<Image Grid.Row="0" Grid.Column="0" Source="{Binding FeaturedImage" Aspect="AspectFit" VerticalOptions="Center">
+							</Image>
+							<Label Grid.Row="0"  Grid.Column="1" Text="{Binding Title}" FontFamily="Helvetica-Light" TextColor="Gray"  HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+							</Label>
+							<BoxView Grid.Row="1" Grid.ColumnSpan="2" Color="#eee" ></BoxView>
+						</Grid>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
 			</ListView>
 			<Grid Grid.Row="3" Grid.ColumnSpan="2" Padding="20,0,20,0">
 				<Grid.ColumnDefinitions>

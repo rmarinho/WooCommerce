@@ -18,6 +18,7 @@ namespace WooCommerce
 		{
 			InitializeComponent ();
 			this.BindingContext = new ProductsViewModel();
+			NavigationPage.SetBackButtonTitle (this,"" );
 		}
 	}
 }
