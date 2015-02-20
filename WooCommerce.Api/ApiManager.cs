@@ -49,17 +49,17 @@ namespace WooCommerce.Api
 		string _appUrl;
 		HttpClient _client;
 
-		public WooCommerceClient()
+		public WooCommerceClient(string url)
 		{
 			Version = DefaultVersion;
-			_appUrl = "https://xamstore.azurewebsites.net/";
+			_appUrl = url;
 			_client = new HttpClient ();
 			_client.BaseAddress = new Uri(_appUrl);
 			Currency = "€";
 		}
 
-		public WooCommerceClient(string appId, string appSecret)
-			: this()
+		public WooCommerceClient(string url, string appId, string appSecret)
+			: this(url)
 		{
 			if (string.IsNullOrEmpty(appId))
 				throw new ArgumentNullException("appId");

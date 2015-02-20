@@ -14,6 +14,9 @@ namespace WooCommerce
 
 		const string clientId = "ck_85fc8233163e4d288a876b02ad16451f";
 		const string clientKey = "cs_7ccf7a5345d3f647a19a4054bbc5431a";
+		const string baseStoreUrl = "https://xamstore.azurewebsites.net/";
+		const string baseStoreUrl2 = "http://scespinho.pt/";
+		const string baseStoreUrl3 = "http://skimstore.eu/";
 
 		public static INavigation Navigation {
 			get{ 
@@ -24,7 +27,7 @@ namespace WooCommerce
 		public App ()
 		{
 			InitializeComponent ();
-			Client = new WooCommerceClient (clientId,clientKey);
+			Client = new WooCommerceClient (baseStoreUrl,clientId,clientKey);
 			mdMain = new MasterDetailPage ();
 			//binding title doesn+t work.
 			mdMain.Master = new MenuPage () {
