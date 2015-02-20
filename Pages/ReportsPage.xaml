@@ -40,32 +40,7 @@
 				<Label Text="New Customers">
 				</Label>
 			</StackLayout>-->
-			<ListView Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding TopSellerProducts}">
-					<ListView.ItemTemplate>
-				<DataTemplate>
-					<ViewCell>
-						<Grid Padding="0,2,0,10">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="*">
-								</RowDefinition>
-								<RowDefinition Height="1">
-								</RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto">
-								</ColumnDefinition>
-								<ColumnDefinition>
-								</ColumnDefinition>
-							</Grid.ColumnDefinitions>
-							<Image Grid.Row="0" Grid.Column="0" Source="{Binding FeaturedImage" Aspect="AspectFit" VerticalOptions="Center">
-							</Image>
-							<Label Grid.Row="0"  Grid.Column="1" Text="{Binding Title}" FontFamily="Helvetica-Light" TextColor="Gray"  HorizontalOptions="StartAndExpand" VerticalOptions="Center">
-							</Label>
-							<BoxView Grid.Row="1" Grid.ColumnSpan="2" Color="#eee" ></BoxView>
-						</Grid>
-					</ViewCell>
-				</DataTemplate>
-			</ListView.ItemTemplate>
+			<ListView Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding TopSellerProducts}"  Style="{StaticResource ProductsListStyle}">
 			</ListView>
 			<Grid Grid.Row="3" Grid.ColumnSpan="2" Padding="20,0,20,0">
 				<Grid.ColumnDefinitions>

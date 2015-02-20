@@ -4,39 +4,8 @@ xmlns:circlePlugin="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly
 Padding="0,10,0,0" IsBusy="{Binding IsBusy}" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.ProductsPage">
 	<ContentPage.Content>
 	<Grid>
-		<ListView ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" RowHeight="75">
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<ViewCell>
-						<Grid RowSpacing= "1" ColumnSpacing="2" Padding="0,2,0,2">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="*">
-								</RowDefinition>
-								<RowDefinition Height="1">
-								</RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid.ColumnDefinitions>
-							  <ColumnDefinition Width="2">
-								</ColumnDefinition>
-								<ColumnDefinition Width="Auto">
-								</ColumnDefinition>
-								<ColumnDefinition>
-								</ColumnDefinition>
-								<ColumnDefinition>
-								</ColumnDefinition>
-							</Grid.ColumnDefinitions>
-							<circlePlugin:CircleImage BorderColor="White"  BorderThickness="3" Grid.Row="0" Grid.Column="1" Source="{Binding Images[0].src}" Aspect="AspectFit" VerticalOptions="Center">
-							</circlePlugin:CircleImage>
-							<Label Grid.Row="0"  Grid.Column="2" Text="{Binding Title}" FontFamily="Helvetica-Light" TextColor="Gray"  HorizontalOptions="StartAndExpand" VerticalOptions="Center">
-							</Label>
-							<Image Grid.Row="0"  Grid.Column="3"  Source="ic_arrow" ></Image>
-							<BoxView Grid.Row="1" VerticalOptions="Center" Grid.ColumnSpan="4" Color="#eee" ></BoxView>
-						</Grid>
-					</ViewCell>
-				</DataTemplate>
-			</ListView.ItemTemplate>
+		<ListView ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" Style="{StaticResource ProductsListStyle}" RowHeight="75">
 		</ListView>
-
 		<ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center"></ActivityIndicator>
 	</Grid>
 	</ContentPage.Content>
