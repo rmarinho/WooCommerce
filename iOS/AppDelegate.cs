@@ -34,6 +34,8 @@ namespace WooCommerce.iOS
 		{
 			Preety ();
 
+			//OxyPlot.Xamarin.Forms.Platform.iOS.Forms.Init();
+
 			ImageCircleRenderer.Init();
 
 			global::Xamarin.Forms.Forms.Init ();
