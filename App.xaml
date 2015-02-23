@@ -1,6 +1,4 @@
-﻿<Application xmlns="http://xamarin.com/schemas/2014/forms" 
-xmlns:circlePlugin="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly= ImageCircle.Forms.Plugin.Abstractions"
-xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.App">
+﻿<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:circlePlugin="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly= ImageCircle.Forms.Plugin.Abstractions" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.App">
 	<Application.Resources>
 		<ResourceDictionary>
 			<Style x:Key="ProductPropertyLabelStyle" TargetType="Label">
@@ -18,13 +16,12 @@ xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.App"
 				<Setter Property="FontFamily" Value="HelveticaNeue-Light">
 				</Setter>
 			</Style>
-
 			<Style x:Key="ProductsListStyle" TargetType="ListView">
-					<Setter Property="ItemTemplate" >
-						<Setter.Value>
-							<DataTemplate>
+				<Setter Property="ItemTemplate">
+					<Setter.Value>
+						<DataTemplate>
 							<ViewCell>
-								<Grid RowSpacing= "1" ColumnSpacing="2" Padding="0,2,0,2">
+								<Grid RowSpacing="1" ColumnSpacing="2" Padding="0,2,0,2">
 									<Grid.RowDefinitions>
 										<RowDefinition Height="*">
 										</RowDefinition>
@@ -32,28 +29,31 @@ xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.App"
 										</RowDefinition>
 									</Grid.RowDefinitions>
 									<Grid.ColumnDefinitions>
-									  <ColumnDefinition Width="2">
-						  			  </ColumnDefinition>
-									<ColumnDefinition Width="Auto">
-								</ColumnDefinition>
-								<ColumnDefinition>
-								</ColumnDefinition>
-								<ColumnDefinition>
-								</ColumnDefinition>
-							</Grid.ColumnDefinitions>
-							<circlePlugin:CircleImage BorderColor="White"  BorderThickness="3" Grid.Row="0" Grid.Column="1" Source="{Binding Images[0].src}" Aspect="AspectFit" VerticalOptions="Center">
-							</circlePlugin:CircleImage>
-							<Label Grid.Row="0"  Grid.Column="2" Text="{Binding Title}" FontFamily="Helvetica-Light" TextColor="Gray"  HorizontalOptions="StartAndExpand" VerticalOptions="Center">
-							</Label>
-							<Image Grid.Row="0"  Grid.Column="3"  Source="ic_arrow" ></Image>
-							<BoxView Grid.Row="1" VerticalOptions="Center" Grid.ColumnSpan="4" Color="#eee" ></BoxView>
-						</Grid>
-					</ViewCell>
-				</DataTemplate>
-						</Setter.Value>
-					</Setter>
+										<ColumnDefinition Width="2">
+										</ColumnDefinition>
+										<ColumnDefinition Width="Auto">
+										</ColumnDefinition>
+										<ColumnDefinition>
+										</ColumnDefinition>
+										<ColumnDefinition>
+										</ColumnDefinition>
+										<ColumnDefinition Width="10">
+										</ColumnDefinition>
+									</Grid.ColumnDefinitions>
+									<circlePlugin:CircleImage BorderColor="White" BorderThickness="3" Grid.Row="0" Grid.Column="1" Source="{Binding Images[0].src}" Aspect="AspectFit" VerticalOptions="Center">
+									</circlePlugin:CircleImage>
+									<Label Grid.Row="0" Grid.Column="2" Text="{Binding Title}" FontFamily="Helvetica-Light" TextColor="Gray" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+									</Label>
+									<Image Grid.Row="0" Grid.Column="3" Source="ic_arrow" Rotation="180" HeightRequest="15" HorizontalOptions="End" VerticalOptions="Center" Aspect="AspectFit">
+									</Image>
+									<BoxView Grid.Row="1" VerticalOptions="Center" Grid.ColumnSpan="5" Color="#eee">
+									</BoxView>
+								</Grid>
+							</ViewCell>
+						</DataTemplate>
+					</Setter.Value>
+				</Setter>
 			</Style>
-
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>
