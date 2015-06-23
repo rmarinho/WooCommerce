@@ -39,23 +39,25 @@ namespace WooCommerce.Api
 		public static string Orders = "wc-api/v2/orders";
 		public static string OrdersCount = "wc-api/v2/orders/count";
 		public static string OrdersStatuses = "wc-api/v2/orders/statuses";
-			public static string Reports = "wc-api/v2/reports";
+		public static string Reports = "wc-api/v2/reports";
 		public static string ReportSales = "wc-api/v2/reports/sales";
 		public static string ReportTopSellers = "wc-api/v2/reports/sales/top_sellers";
 	}
 
-	public class WooCommerceClient
+	public class WooCommerceClient : IWooCommerceClient
 	{
-		string _appUrl;
-		HttpClient _client;
+		string appUrl;
+		HttpClient httpClient;
+		ICacheService cacheService;
 
 		public WooCommerceClient(string url)
 		{
 			Version = DefaultVersion;
-			_appUrl = url;
-			_client = new HttpClient ();
-			_client.BaseAddress = new Uri(_appUrl);
+			appUrl = url;
+			httpClient = new HttpClient ();
+			httpClient.BaseAddress = new Uri(appUrl);
 			Currency = "€";
+			cacheService = new InMemoryCacheService ();
 		}
 
 		public WooCommerceClient(string url, string appId, string appSecret)
@@ -69,10 +71,9 @@ namespace WooCommerce.Api
 
 			AppId = appId;
 			AppSecret = appSecret;
-			_client.BaseAddress = new Uri(_appUrl);
+			httpClient.BaseAddress = new Uri(appUrl);
 			var byteArray = Encoding.UTF8.GetBytes(string.Format("{0}:{1}", appId, appSecret));
-
-			_client.DefaultRequestHeaders.Authorization =  new AuthenticationHeaderValue("Basic",  Convert.ToBase64String(byteArray));
+			httpClient.DefaultRequestHeaders.Authorization =  new AuthenticationHeaderValue("Basic",  Convert.ToBase64String(byteArray));
 
 		}
 
@@ -121,6 +122,7 @@ namespace WooCommerce.Api
 			return result;
 		}
 
+	
 		public async Task<List<Product>> GetProducts()
 		{
 			var request = PrepareRequest (HttpMethod.Get, WooCommerceEndpoints.Products, null); 
@@ -164,7 +166,14 @@ namespace WooCommerce.Api
 
 		async Task<HttpResponseMessage> ExecuteRequest (HttpRequestMessage request)
 		{
-			var response = await _client.SendAsync (request);
+			HttpResponseMessage response;
+			var cache = cacheService.GetFromCache (request.RequestUri.OriginalString);
+			if (string.IsNullOrEmpty (cache)) {
+				response = await httpClient.SendAsync (request);
+			} else {
+				response = new HttpResponseMessage (System.Net.HttpStatusCode.NotModified);
+				response.Content = new StringContent (cache);
+			}
 			return response;
 		}
 
@@ -180,9 +189,14 @@ namespace WooCommerce.Api
 		async Task<T> ProcessResponse<T>(HttpResponseMessage httpMessage)
 		{
 			Exception exception = null;
-			if (httpMessage.IsSuccessStatusCode) {
+
+			if (httpMessage.IsSuccessStatusCode || (httpMessage.StatusCode == System.Net.HttpStatusCode.NotModified)) {
 				try {
 					var strResult = await httpMessage.Content.ReadAsStringAsync (); 
+				
+					if(httpMessage.IsSuccessStatusCode)
+						cacheService.SetToCache(httpMessage.RequestMessage.RequestUri.PathAndQuery.Remove(0,1),strResult);
+
 					JObject obj = JObject.Parse(strResult);
 					T data = default(T);
 						if (obj != null)
