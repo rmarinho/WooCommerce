@@ -34,10 +34,12 @@ namespace WooCommerce.iOS
 		{
 			Preety ();
 
-			//OxyPlot.Xamarin.Forms.Platform.iOS.Forms.Init();
+
+
+			OxyPlot.Xamarin.Forms.Platform.iOS.Forms.Init();
 
 			ImageCircleRenderer.Init();
-
+		
 			global::Xamarin.Forms.Forms.Init ();
 
 			LoadApplication (new App ());

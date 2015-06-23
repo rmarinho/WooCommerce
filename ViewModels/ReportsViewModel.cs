@@ -5,6 +5,8 @@ using WooCommerce.Api;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
+using OxyPlot;
+using OxyPlot.Series;
 
 namespace WooCommerce
 {
@@ -24,6 +26,8 @@ namespace WooCommerce
 		{
 			IsBusy = true;
 			var reports = await App.Client.GetReports ();
+
+
 			var topSellers = new List<TopSeller> ();
 			var orders = new List<Order> ();
 			if (useFilters) {
@@ -45,12 +49,12 @@ namespace WooCommerce
 
 		void UpdateTotals(){
 			if (currentSalesReport != null) {
-				for (int i = 0; i < currentSalesReport.total_orders; i++) {
+				for (int i = 0; i < currentSalesReport.TotalOrders; i++) {
 					NewOrdersCount++;
 				}
-				AverageSales = currentSalesReport.average_sales;
-				TotalSales = currentSalesReport.total_sales;
-				periodFilter = Extensions.ParseEnum<WooCommerceFilterPeriod> (currentSalesReport.totals_grouped_by);
+				AverageSales = currentSalesReport.AverageSales;
+				TotalSales = currentSalesReport.TotalSales;
+				periodFilter = Extensions.ParseEnum<WooCommerceFilterPeriod> (currentSalesReport.TotalsGroupedBy);
 			}
 			if (currentOrders != null) {
 				for (int i = 0; i < currentOrders.Count; i++) {
@@ -70,6 +74,26 @@ namespace WooCommerce
 				}	
 			
 			}
+			var plotModel = new PlotModel ();
+
+			var lineSeries = new LineSeries();
+
+			List<Tuple<int,int>> dataPointsX = new List<Tuple<int,int>>();
+			for (int i = 0; i < 10; i++)
+			{
+				dataPointsX.Add(new Tuple<int,int>(i,i));
+			}
+
+			foreach (var item in dataPointsX)
+			{
+				DataPoint point = new DataPoint(item.Item1,item.Item2);
+
+				lineSeries.Points.Add(point);
+			}
+
+			plotModel.Series.Add(lineSeries);
+
+			SalesPlotModel = plotModel;
 		}
 
 		WooCommerceFilterPeriod periodFilter = WooCommerceFilterPeriod.None;
@@ -191,9 +215,18 @@ namespace WooCommerce
 			}
 		}
 
+		PlotModel salesPlotModel;
+		public PlotModel SalesPlotModel {
+			get{ 
+				return salesPlotModel;
+			}
+			set{ SetProperty (ref salesPlotModel, value); }
+		}
+
+
 		public string PageName {
 			get {
-				return "Products";
+				return "Reports";
 			}
 		}
 	}

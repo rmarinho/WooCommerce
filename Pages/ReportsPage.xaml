@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage Title="{Binding PageName}" IsBusy="{Binding IsBusy}" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.ReportsPage">
+<ContentPage Title="{Binding PageName}" IsBusy="{Binding IsBusy}" 
+xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
+xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.ReportsPage">
 	<ContentPage.Content>
 		<Grid>
 			<Grid.RowDefinitions>
@@ -13,14 +15,15 @@
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 
-		
+			<oxy:PlotView Model="{Binding SalesPlotModel}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  Grid.Row="0" Grid.Column="0"/>
 
-			<StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0" Padding="20,0,0,0">
-				<Label FontSize="25" Text="{Binding TotalSales}">
+<!--			<StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0" Padding="20,0,0,0">
+				<Label FontSize="25" Text="{Binding TotalSales}" >
 				</Label>
-				<Label Text="Revenue">
+				<Label Text="Revenue" Style="{StaticResource ReportLabelStyle}">
 				</Label>
-			</StackLayout>
+			</StackLayout>-->
+
 			<StackLayout Orientation="Vertical" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Padding="0,0,0,0">
 
 				<Picker x:Name="filterOptions"></Picker>
@@ -31,7 +34,7 @@
 			<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Padding="20,0,0,0">
 				<Label FontSize="25" Text="{Binding NewOrdersCount}">
 				</Label>
-				<Label Text="New Orders">
+				<Label Text="New Orders" Style="{StaticResource ReportLabelStyle}">
 				</Label>
 			</StackLayout>
 <!--			<StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Padding="0,0,0,0">
@@ -53,21 +56,21 @@
 					<RowDefinition />
 					<RowDefinition />
 				</Grid.RowDefinitions>
-				<Label Text="{Binding ProcessingOrdersCount}" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="22">
+				<Label Text="{Binding ProcessingOrdersCount}" Grid.Row="0" Grid.Column="0" Style="{StaticResource ReportValueBigStyle}">
 				</Label>
-				<Label Text="Processing Orders" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" TextColor="Gray">
+				<Label Text="Processing Orders" Grid.Row="1" Grid.Column="0" Style="{StaticResource ReportLabelStyle}">
 				</Label>
-				<Label Text="{Binding PendingOrdersCount}"  Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="22">
+				<Label Text="{Binding PendingOrdersCount}"  Grid.Row="0" Grid.Column="1" Style="{StaticResource ReportValueBigStyle}">
 				</Label>
-				<Label Text="Pending Orders" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" TextColor="Gray">
+				<Label Text="Pending Orders" Grid.Row="1" Grid.Column="1" Style="{StaticResource ReportLabelStyle}">
 				</Label>
-				<Label Text="{Binding HeldOrdersCount}"  Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="22">
+				<Label Text="{Binding HeldOrdersCount}"  Grid.Row="0" Grid.Column="2" Style="{StaticResource ReportValueBigStyle}">
 				</Label>
-				<Label Text="Held Orders" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" TextColor="Gray">
+				<Label Text="Held Orders" Grid.Row="1" Grid.Column="2" Style="{StaticResource ReportLabelStyle}">
 				</Label>
-				<Label Text="{Binding CompletedOrdersCount}"  Grid.Row="0" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="22">
+				<Label Text="{Binding CompletedOrdersCount}"  Grid.Row="0" Grid.Column="3" Style="{StaticResource ReportValueBigStyle}">
 				</Label>
-				<Label Text="Completed Orders" Grid.Row="1" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" TextColor="Gray">
+				<Label Text="Completed Orders" Grid.Row="1" Grid.Column="3" Style="{StaticResource ReportLabelStyle}">
 				</Label>
 			</Grid>
 		</Grid>

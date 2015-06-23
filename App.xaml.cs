@@ -34,7 +34,7 @@ namespace WooCommerce
 				Icon = "nav_btn_md.png",
 				Title = " "
 			};
-			mdMain.Detail = new NavigationPage(new ProductsPage());
+			mdMain.Detail = new NavigationPage(new ReportsPage());
 			MainPage = mdMain;
 		}
 
