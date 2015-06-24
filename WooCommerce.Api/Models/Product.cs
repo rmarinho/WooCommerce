@@ -84,7 +84,7 @@ namespace WooCommerce.Api
 					return this.FeaturedImage;
 				if (this.Images != null && this.Images.Count > 0)
 					return this.Images [0].src;
-				return "icon";
+				return "icon-76";
 			}
 
 		}

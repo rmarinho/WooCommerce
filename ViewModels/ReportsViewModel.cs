@@ -26,7 +26,7 @@ namespace WooCommerce
 			if (useFilters) {
 				topSellers = await App.Client.GetTopSellerReport (PeriodFilter, MinDate, MaxDate);
 			} else {
-				UpdateTotals ();
+				await UpdateTotals ();
 			}
 
 			IsBusy = false;
@@ -37,11 +37,11 @@ namespace WooCommerce
 		List<TopSeller> topSellers;
 
 
-		void UpdateTotals(){
+		Task UpdateTotals(){
 			var updateSalesReportTask = UpdateSalesReport ();
 			var updateOrdersTask = UpdateOrdersNumbers ();
 			var updateTopSellersTask = UpdateTopSellers ();
-			Task.WhenAll (new [] { updateSalesReportTask, updateOrdersTask, updateTopSellersTask });
+			return Task.WhenAll (new [] { updateSalesReportTask, updateOrdersTask, updateTopSellersTask });
 		}
 
 		async Task UpdateNumbersCount ()
@@ -315,11 +315,13 @@ namespace WooCommerce
 		public Product SelectedProduct {
 			get{ return selectedProduct; }
 			set{ 
-				if(selectedProduct != value) {
+				if (selectedProduct != value) {
 					SetProperty (ref selectedProduct, value);
-					var detailPage = new ProductDetailPage();
-					detailPage.ViewModel.Product = selectedProduct;
-					App.Navigation.PushAsync (detailPage);
+					if (selectedProduct != null) {
+						var detailPage = new ProductDetailPage ();
+						detailPage.ViewModel.Product = selectedProduct;
+						App.Navigation.PushAsync (detailPage);
+					}
 				}
 			}
 		}

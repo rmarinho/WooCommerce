@@ -23,7 +23,6 @@ namespace WooCommerce
 				filterOptions.Items.Add (periodFilterOption.ToString ());
 			}
 			filterOptions.SelectedIndex = 1;
-			var lst = new ListView ();
 		
 			oxyPlotViewSales.Opacity  = oxyPlotViewOrders.Opacity = oxyPlotViewCustomers.Opacity = 0;
 			oxyPlotViewSales.BackgroundColor = Color.Transparent;
@@ -44,6 +43,7 @@ namespace WooCommerce
 
 		protected override void OnDisappearing ()
 		{
+			ViewModel.SelectedProduct = null;
 			filterOptions.SelectedIndexChanged -= HandleSelectedIndexChanged;
 			ViewModel.PropertyChanged -= ViewModel_PropertyChanged;
 			base.OnDisappearing ();
@@ -52,20 +52,19 @@ namespace WooCommerce
 		async void ViewModel_PropertyChanged (object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "PlotDataReady") {
-				FadeChartsIn ();
+				await FadeChartsIn ();
 			}
 		}
 
-
 		Task FadeChartsIn ()
 		{
-			var inOrOut = oxyPlotViewSales.Opacity == 0 ? 1 : 0;
-			uint length = 300;
+			var inOrOut = ViewModel.PlotDataReady ? 1 : 0;
+			uint length = 400;
 
 			return Task.WhenAll (new Task[] {
 				oxyPlotViewSales.FadeTo (inOrOut, length, Easing.Linear),
-				oxyPlotViewOrders.FadeTo (inOrOut, length + 100, Easing.Linear),
-				oxyPlotViewCustomers.FadeTo (inOrOut, length + 120, Easing.Linear)
+				oxyPlotViewOrders.FadeTo (inOrOut, length * 2, Easing.Linear),
+				oxyPlotViewCustomers.FadeTo (inOrOut, length * 3, Easing.Linear)
 			});
 		}
 	}
