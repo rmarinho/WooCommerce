@@ -2,18 +2,26 @@
 	<Application.Resources>
 		<ResourceDictionary>
 
+			<Color x:Key="GreenColor">#9db475</Color>
+			<Color x:Key="BlueColor">#20759a</Color>
+			<Color x:Key="OrangeColor">#d39828</Color>
+		    <Color x:Key="AlmostSilver">#FFCCCCCC</Color>
+		    <Color x:Key="LightGrayColor">#EEEEEE</Color>
+		    <Color x:Key="LightGrayBackgroundColor">#f7f6f7</Color>
+
 		    <Style TargetType="Label">
       			<Setter Property="FontFamily" Value="HelveticaNeue-Light" />
    			</Style>
 
 			<Style x:Key="ReportValueBigStyle" TargetType="Label">
-				<Setter Property="VerticalOptions" Value="Center" />
+				<Setter Property="VerticalOptions" Value="End" />
 				<Setter Property="HorizontalOptions" Value="Center" />
-				<Setter Property="FontSize" Value="22" />
+				<Setter Property="FontSize" Value="30" />
+				<Setter Property="TextColor" Value="Accent"></Setter>
 			
 			</Style>
 			<Style x:Key="ReportLabelStyle" TargetType="Label">
-				<Setter Property="VerticalOptions" Value="Center" />
+				<Setter Property="VerticalOptions" Value="Start" />
 				<Setter Property="HorizontalOptions" Value="Center" />
 				<Setter Property="TextColor" Value="Gray" />
 				<Setter Property="FontSize" Value="12" />
@@ -36,7 +44,10 @@
 					<Setter.Value>
 						<DataTemplate>
 							<ViewCell>
-								<Grid RowSpacing="1" ColumnSpacing="2" Padding="0,2,0,2">
+							<Grid>
+
+						
+								<Grid RowSpacing="1" ColumnSpacing="2" Padding="18,2,10,2">
 									<Grid.RowDefinitions>
 										<RowDefinition Height="*">
 										</RowDefinition>
@@ -55,15 +66,16 @@
 										<ColumnDefinition Width="10">
 										</ColumnDefinition>
 									</Grid.ColumnDefinitions>
-									<circlePlugin:CircleImage BorderColor="White" BorderThickness="3" Grid.Row="0" Grid.Column="1" Source="{Binding Images[0].src}" Aspect="AspectFit" VerticalOptions="Center">
+									<circlePlugin:CircleImage BorderColor="White" BorderThickness="3" Grid.Row="0" Grid.Column="1" Source="{Binding Image}" Aspect="AspectFit" VerticalOptions="Center">
 									</circlePlugin:CircleImage>
 									<Label Grid.Row="0" Grid.Column="2" Text="{Binding Title}" FontFamily="Helvetica-Light" TextColor="Gray" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
 									</Label>
 									<Image Grid.Row="0" Grid.Column="3" Source="ic_arrow" Rotation="180" HeightRequest="15" HorizontalOptions="End" VerticalOptions="Center" Aspect="AspectFit">
 									</Image>
-									<BoxView Grid.Row="1" VerticalOptions="Center" Grid.ColumnSpan="5" Color="#eee">
-									</BoxView>
+
 								</Grid>
+									<BoxView VerticalOptions="End" HeightRequest="1" Color="{StaticResource LightGrayColor}"></BoxView>
+									</Grid>
 							</ViewCell>
 						</DataTemplate>
 					</Setter.Value>
