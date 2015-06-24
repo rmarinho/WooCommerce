@@ -34,10 +34,12 @@ namespace WooCommerce
 			ViewModel.PeriodFilter =  selectedPeriod;
 		}
 
-		protected override void OnAppearing ()
+		protected override async void OnAppearing ()
 		{
 			ViewModel.PropertyChanged += ViewModel_PropertyChanged;
 			filterOptions.SelectedIndexChanged += HandleSelectedIndexChanged;
+			if (ViewModel.PlotDataReady)
+				await FadeChartsIn ();
 			base.OnAppearing ();
 		}
 
@@ -56,16 +58,15 @@ namespace WooCommerce
 			}
 		}
 
-		Task FadeChartsIn ()
+		async Task FadeChartsIn ()
 		{
 			var inOrOut = ViewModel.PlotDataReady ? 1 : 0;
 			uint length = 400;
 
-			return Task.WhenAll (new Task[] {
-				oxyPlotViewSales.FadeTo (inOrOut, length, Easing.Linear),
-				oxyPlotViewOrders.FadeTo (inOrOut, length * 2, Easing.Linear),
-				oxyPlotViewCustomers.FadeTo (inOrOut, length * 3, Easing.Linear)
-			});
+			await oxyPlotViewSales.FadeTo (inOrOut, length, Easing.Linear);
+			await oxyPlotViewOrders.FadeTo (inOrOut, length, Easing.Linear);
+			await oxyPlotViewCustomers.FadeTo (inOrOut, length, Easing.Linear);
+
 		}
 	}
 }
