@@ -9,10 +9,10 @@ namespace WooCommerce
 	{
 		public MenuViewModel ()
 		{
-			MenuItems.Add (new MenuItem { Title = "Start", Navigate = (md) => md.Detail = new NavigationPage(new MainPage()) });
-			MenuItems.Add (new MenuItem { Title = "Products", Navigate = (md) => md.Detail = new NavigationPage(new ProductsPage()) });
-			MenuItems.Add (new MenuItem { Title = "Orders", Navigate = (md) => md.Detail = new NavigationPage(new OrdersPage()) });
-			MenuItems.Add (new MenuItem { Title = "Reports", Navigate = (md) => md.Detail = new NavigationPage(new ReportsPage()) });
+			MenuItems.Add (new MenuItem { Title = "Start", Navigate = (md) => md.Detail = new BaseNavigationPage(new MainPage()) });
+			MenuItems.Add (new MenuItem { Title = "Products", Navigate = (md) => md.Detail = new BaseNavigationPage(new ProductsPage()) });
+			MenuItems.Add (new MenuItem { Title = "Orders", Navigate = (md) => md.Detail = new BaseNavigationPage(new OrdersPage()) });
+			MenuItems.Add (new MenuItem { Title = "Reports", Navigate = (md) => md.Detail = new BaseNavigationPage(new ReportsPage()) });
 		}
 
 		ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();

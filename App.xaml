@@ -10,11 +10,17 @@ xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.App"
 			<Color x:Key="BlueColor">#20759a</Color>
 			<Color x:Key="OrangeColor">#d39828</Color>
 			<Color x:Key="AlmostSilver">#FFCCCCCC</Color>
+			<Color x:Key="PageBackground">#FFFFFFFF</Color>
 			<Color x:Key="LightGrayColor">#EEEEEE</Color>
 			<Color x:Key="LightGrayBackgroundColor">#f7f6f7</Color>
+
+
+
 			<Style TargetType="Label">
 				<Setter Property="FontFamily" Value="HelveticaNeue-Light" />
 			</Style>
+
+
 			<Style x:Key="ReportValueBigStyle" TargetType="Label">
 				<Setter Property="VerticalOptions" Value="End" />
 				<Setter Property="HorizontalOptions" Value="Center" />

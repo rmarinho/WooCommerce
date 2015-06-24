@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage Title="General" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.ProductDetailGeneralPage">
+<ContentPage BackgroundColor="{StaticResource PageBackground}" Title="General" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.ProductDetailGeneralPage">
 	<ContentPage.Content>
 	<Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 		<Grid.RowDefinitions>
