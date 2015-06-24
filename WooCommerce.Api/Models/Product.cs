@@ -77,6 +77,17 @@ namespace WooCommerce.Api
 		public string Tags {
 			get { return tags == null ? "" : String.Join (",", tags); }
 		}
+
+		public string Image {
+			get { 
+				if(!string.IsNullOrEmpty(this.FeaturedImage))
+					return this.FeaturedImage;
+				if (this.Images != null && this.Images.Count > 0)
+					return this.Images [0].src;
+				return "icon";
+			}
+
+		}
 	}
 }
 

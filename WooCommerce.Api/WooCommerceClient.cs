@@ -211,6 +211,7 @@ namespace WooCommerce.Api
 							}
 						}
 					}
+
 					return data;
 				} catch (Exception e) {
 					exception = e;
