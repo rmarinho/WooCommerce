@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WooCommerce.Api
+namespace WooCommerce.Services
 {
 	public class InMemoryCacheService : ICacheService
 	{

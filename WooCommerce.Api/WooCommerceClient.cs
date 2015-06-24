@@ -6,6 +6,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using WooCommerce.Services;
 
 namespace WooCommerce.Api
 {
@@ -50,18 +51,20 @@ namespace WooCommerce.Api
 		HttpClient httpClient;
 		ICacheService cacheService;
 
-		public WooCommerceClient(string url)
+		public WooCommerceClient(string url, ICacheService cache)
 		{
 			Version = DefaultVersion;
 			appUrl = url;
 			httpClient = new HttpClient ();
 			httpClient.BaseAddress = new Uri(appUrl);
 			Currency = "€";
-			cacheService = new InMemoryCacheService ();
+			if (cache == null)
+				cache = new InMemoryCacheService ();
+			cacheService = cache;
 		}
 
-		public WooCommerceClient(string url, string appId, string appSecret)
-			: this(url)
+		public WooCommerceClient(string url, string appId, string appSecret, ICacheService cache)
+			: this(url,cache)
 		{
 			if (string.IsNullOrEmpty(appId))
 				throw new ArgumentNullException("appId");

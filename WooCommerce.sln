@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooCommerce.Droid", "Droid\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooCommerce.Api", "WooCommerce.Api\WooCommerce.Api.csproj", "{D20F459A-F1E6-4744-B7A2-813B00D022BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooCommerce.Services", "WooCommerce.Services\WooCommerce.Services.csproj", "{1087F61D-8620-486A-AF57-62EF48E801EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,22 @@ Global
 		AppStore|iPhone = AppStore|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Release|iPhone.Build.0 = Release|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{1087F61D-8620-486A-AF57-62EF48E801EF}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{8B20588C-F867-4D29-9135-F64818BBB82B}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
 		{8B20588C-F867-4D29-9135-F64818BBB82B}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
 		{8B20588C-F867-4D29-9135-F64818BBB82B}.AppStore|iPhone.ActiveCfg = Debug|Any CPU

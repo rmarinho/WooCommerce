@@ -38,8 +38,6 @@
     <Compile Include="Models\Report.cs" />
     <Compile Include="WooCommerceClient.cs" />
     <Compile Include="IWooCommerceClient.cs" />
-    <Compile Include="ICacheService.cs" />
-    <Compile Include="InMemoryCacheService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -75,5 +73,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WooCommerce.Services\WooCommerce.Services.csproj">
+      <Project>{1087F61D-8620-486A-AF57-62EF48E801EF}</Project>
+      <Name>WooCommerce.Services</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

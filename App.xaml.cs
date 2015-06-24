@@ -10,6 +10,7 @@ namespace WooCommerce
 		public static Color NavBarButtonTint = Color.FromHex("#9b9b9b");
 
 		public static WooCommerceClient Client;
+		public static Database DB;
 		static MasterDetailPage mdMain;
 
 		const string clientId = "ck_85fc8233163e4d288a876b02ad16451f";
@@ -27,14 +28,14 @@ namespace WooCommerce
 		public App ()
 		{
 			InitializeComponent ();
-			Client = new WooCommerceClient (baseStoreUrl,clientId,clientKey);
+			DB = new Database ();
+			Client = new WooCommerceClient (baseStoreUrl, clientId, clientKey, DB);
 			mdMain = new MasterDetailPage ();
-			//binding title doesn+t work.
 			mdMain.Master = new MenuPage () {
 				Icon = "nav_btn_md.png",
 				Title = " "
 			};
-			mdMain.Detail = new NavigationPage(new ReportsPage());
+			mdMain.Detail = new NavigationPage(new ProductsPage());
 			MainPage = mdMain;
 		}
 

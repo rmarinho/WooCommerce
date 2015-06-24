@@ -1,8 +1,6 @@
 ﻿using System;
 
-using Xamarin.Forms;
-
-namespace WooCommerce.Api
+namespace WooCommerce.Services
 {
 	public interface ICacheService 
 	{
