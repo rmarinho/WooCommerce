@@ -20,45 +20,73 @@ namespace WooCommerce
 			GetData ();
 		}
 
-		SalesReport currentSalesReport;
-		List<Order> currentOrders;
 		public async Task GetData(bool useFilters = false)
 		{
 			IsBusy = true;
-			var reports = await App.Client.GetReports ();
-
-
-			var topSellers = new List<TopSeller> ();
-			var orders = new List<Order> ();
 			if (useFilters) {
 				topSellers = await App.Client.GetTopSellerReport (PeriodFilter, MinDate, MaxDate);
 			} else {
-				topSellers = await App.Client.GetTopSellerReport ();
-				currentSalesReport = await App.Client.GetSalesReport ();
-				currentOrders = await App.Client.GetOrders ();
 				UpdateTotals ();
 			}
 
-			TopSellerProducts.Clear ();
-			foreach (var topSeller in topSellers) {
-				var product = await App.Client.GetProductById (topSeller.ProductId);
-				TopSellerProducts.Add (product);
-			}
 			IsBusy = false;
 		}
 
+		SalesReport currentSalesReport;
+		List<Order> currentOrders;
+		List<TopSeller> topSellers;
+
+
 		void UpdateTotals(){
-			if (currentSalesReport != null) {
-				for (int i = 0; i < currentSalesReport.TotalOrders; i++) {
-					NewOrdersCount++;
-				}
-				AverageSales = currentSalesReport.AverageSales;
-				TotalSales = currentSalesReport.TotalSales;
-				periodFilter = Extensions.ParseEnum<WooCommerceFilterPeriod> (currentSalesReport.TotalsGroupedBy);
+			var updateSalesReportTask = UpdateSalesReport ();
+			var updateOrdersTask = UpdateOrdersNumbers ();
+			var updateTopSellersTask = UpdateTopSellers ();
+			Task.WhenAll (new [] { updateSalesReportTask, updateOrdersTask, updateTopSellersTask });
+		}
+
+		async Task UpdateNumbersCount ()
+		{
+			for (int i = 0; i < currentSalesReport.TotalOrders; i++) {
+				await Task.Delay (200);
+				NewOrdersCount++;
 			}
+			for (int i = 0; i < currentSalesReport.TotalCustomers; i++) {
+				await Task.Delay (200);
+				NewCustomersCount++;
+			}
+		}
+
+		async Task UpdateSalesReport ()
+		{
+			currentSalesReport = await App.Client.GetSalesReport (WooCommerceFilterPeriod.Month);
+			if (currentSalesReport == null)
+				return;
+			
+			UpdateNumbersCount ();
+			AverageSales = currentSalesReport.AverageSales;
+			TotalSales = currentSalesReport.TotalSales;
+			periodFilter = Extensions.ParseEnum<WooCommerceFilterPeriod> (currentSalesReport.TotalsGroupedBy);
+			GeneratePlotModels (currentSalesReport);
+		}
+
+		async Task UpdateTopSellers ()
+		{
+			TopSellerProducts.Clear ();
+			topSellers = await App.Client.GetTopSellerReport ();
+			foreach (var topSeller in topSellers) {
+				var product = new Product ();
+				product.TotalSales = topSeller.Quantity;
+				product.Title = topSeller.Title;
+				TopSellerProducts.Add (product);
+			}
+		}
+
+		async Task UpdateOrdersNumbers()
+		{
+			currentOrders = await App.Client.GetOrders ();
 			if (currentOrders != null) {
 				for (int i = 0; i < currentOrders.Count; i++) {
-				
+					await Task.Delay (200);
 					if (currentOrders [i].status == "processing") {
 						ProcessingOrdersCount++;
 					}
@@ -72,28 +100,90 @@ namespace WooCommerce
 						CompletedOrdersCount++;
 					}
 				}	
-			
 			}
-			var plotModel = new PlotModel ();
+		}
 
-			var lineSeries = new LineSeries();
+		void GeneratePlotModels (SalesReport report)
+		{
+			PlotDataReady = false;
+			var splotModel = GetSalesSplotModel (report);
+			var noplotModel = GetNewOrdersSplotModel (report);
+			var ncplotModel = GetNewCustomersSplotModel (report);
+			NewCustomersPlotModel = ncplotModel;
+			SalesPlotModel = splotModel;
+			NewOrdersPlotModel = noplotModel;
+			PlotDataReady = true;
+		}
 
-			List<Tuple<int,int>> dataPointsX = new List<Tuple<int,int>>();
-			for (int i = 0; i < 10; i++)
-			{
-				dataPointsX.Add(new Tuple<int,int>(i,i));
+		static PlotModel GetNewCustomersSplotModel (SalesReport report)
+		{
+			var splotModel =  CreateChartOnlyBars ();
+
+			var columnSeries = new ColumnSeries ();
+			for (int i = 0; i < report.Totals.Count; i++) {
+				var total = report.Totals.ElementAt (i).Value;
+				columnSeries.Items.Add (new ColumnItem (total.Customers) {
+					Color = OxyColor.Parse ( i% 2 == 0 ? "#c7d9e6" : "#e4ecf3")
+				});
 			}
+			splotModel.Series.Add (columnSeries);
+			return splotModel;
+		}
 
-			foreach (var item in dataPointsX)
-			{
-				DataPoint point = new DataPoint(item.Item1,item.Item2);
+		static PlotModel GetNewOrdersSplotModel (SalesReport report)
+		{
+			var splotModel =  CreateChartOnlyBars ();
 
-				lineSeries.Points.Add(point);
+			var columnSeries = new ColumnSeries ();
+			for (int i = 0; i < report.Totals.Count; i++) {
+				var total = report.Totals.ElementAt (i).Value;
+				columnSeries.Items.Add (new ColumnItem (total.Orders) {
+					Color = OxyColor.Parse ( i% 2 == 0 ? "#f2e3c7" : "#f5ebde") 
+				});
 			}
+			splotModel.Series.Add (columnSeries);
+			return splotModel;
+		}
 
-			plotModel.Series.Add(lineSeries);
+		static PlotModel GetSalesSplotModel (SalesReport report)
+		{
+			var splotModel =  CreateChartOnlyBars ();
 
-			SalesPlotModel = plotModel;
+			var columnSeries = new ColumnSeries ();
+			for (int i = 0; i < report.Totals.Count; i++) {
+				var total = report.Totals.ElementAt (i).Value;
+				double value;
+				double.TryParse (total.Sales, out value);
+				if (value == 0)
+					value = 1;
+				columnSeries.Items.Add (new ColumnItem (value) {
+					Color = OxyColor.Parse ( i% 2 == 0 ? "#dee3c7" : "#ebedde") 
+				});
+			}
+			splotModel.Series.Add (columnSeries);
+			return splotModel;
+		}
+
+		static PlotModel CreateChartOnlyBars ()
+		{
+			var splotModel = new PlotModel ();
+
+
+			splotModel.IsLegendVisible = false;
+			splotModel.Background = OxyColor.FromArgb (0, 0, 0, 255);
+			splotModel.TextColor = OxyColor.FromArgb (0, 0, 0, 255);
+			splotModel.PlotAreaBorderColor = OxyColor.FromArgb (0, 0, 0, 255);
+
+			var axis = new OxyPlot.Axes.LinearAxis ();
+			axis.IsPanEnabled =  axis.IsAxisVisible = false;
+
+			splotModel.Axes.Add (axis);
+
+			var dateAxis = new OxyPlot.Axes.CategoryAxis ();
+			dateAxis.IsPanEnabled =   dateAxis.IsAxisVisible = false;
+			splotModel.Axes.Add (dateAxis);
+
+			return splotModel;
 		}
 
 		WooCommerceFilterPeriod periodFilter = WooCommerceFilterPeriod.None;
@@ -185,12 +275,23 @@ namespace WooCommerce
 			set{ SetProperty (ref newOrdersCount, value); }
 		}
 
-		string totalSales = "";
+
+		int newCustomersCount = 0;
+		public int NewCustomersCount {
+			get{ 
+				return newCustomersCount;
+			}
+			set{ SetProperty (ref newCustomersCount, value); }
+		}
+
+		double totalSales;
 		public string TotalSales {
 			get{ 
 				return string.Format("{0} {1}",totalSales, App.Client.Currency);
 			}
-			set{ SetProperty (ref totalSales, value); }
+			set{ 
+				SetProperty (ref totalSales, double.Parse(value)); 
+			}
 		}
 
 
@@ -200,6 +301,14 @@ namespace WooCommerce
 				return string.Format("{0:C}",averageSales);
 			}
 			set{ SetProperty (ref averageSales, value); }
+		}
+
+		bool plotDataReady;
+		public bool PlotDataReady {
+			get{ 
+				return plotDataReady;
+			}
+			set{ SetProperty (ref plotDataReady, value); }
 		}
 
 		Product selectedProduct = null;
@@ -223,6 +332,23 @@ namespace WooCommerce
 			set{ SetProperty (ref salesPlotModel, value); }
 		}
 
+
+		PlotModel newOrdersPlotModel;
+		public PlotModel NewOrdersPlotModel {
+			get{ 
+				return newOrdersPlotModel;
+			}
+			set{ SetProperty (ref newOrdersPlotModel, value); }
+		}
+
+
+		PlotModel newCustomersPlotModel;
+		public PlotModel NewCustomersPlotModel {
+			get{ 
+				return newCustomersPlotModel;
+			}
+			set{ SetProperty (ref newCustomersPlotModel, value); }
+		}
 
 		public string PageName {
 			get {
