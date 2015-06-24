@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace WooCommerce.Api
 {
@@ -8,6 +9,7 @@ namespace WooCommerce.Api
 
 	public class SalesReport
 	{
+		
 		[JsonProperty("total_sales")]
 		public string TotalSales { get; set; }
 
@@ -32,15 +34,24 @@ namespace WooCommerce.Api
 		[JsonProperty("totals_grouped_by")]
 		public string TotalsGroupedBy { get; set; }
 
-		[JsonProperty("totals")]
-		public Totals Totals { get; set; }
+		IDictionary<string, Total> totals;
+		public IDictionary<string, Total> Totals { 
+			get{ return totals;}
+			set{ totals = value;
+				foreach (var item in totals) {
+					item.Value.Date = DateTime.Parse (item.Key);
+				}
+			} 
+		}
 
 		[JsonProperty("total_customers")]
 		public int TotalCustomers { get; set; }
 	}
 
-	public class Totals
+	public class Total
 	{
+		public DateTime Date { get; set; }
+
 		[JsonProperty("orders")]
 		public int Orders { get; set; }
 
