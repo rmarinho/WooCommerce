@@ -4,7 +4,15 @@ BackgroundColor="{StaticResource PageBackground}"
 xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms" 
 xmlns:local="clr-namespace:WooCommerce;assembly=WooCommerce" 
 xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.ReportsPage">
-	
+	<ContentPage.Triggers>
+		<DataTrigger TargetType="ContentPage"
+                     Binding="{Binding IsPlotDataReady}"
+                     Value="true">
+			  <DataTrigger.EnterActions>
+                <local:FadeTriggerAction StartsFrom="0" />
+            </DataTrigger.EnterActions>
+		</DataTrigger>
+	</ContentPage.Triggers>
 	<ContentPage.Content>
 		<Grid>
 		<Grid.Behaviors>

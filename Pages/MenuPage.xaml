@@ -1,9 +1,32 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage BackgroundColor="#060606" Padding="0,20,0,0"
-xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.MenuPage">
+<ContentPage BackgroundColor="#060606" Padding="0,20,0,0" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.MenuPage">
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<DataTemplate x:Key="MenuItemTemplate">
+				<ViewCell>
+					<Grid ColumnSpacing="1" RowSpacing="0" Padding="1,0,0,0" BackgroundColor="{StaticResource AlmostBlack}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="5" />
+							<ColumnDefinition Width="0.8*" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="1*" />
+							<RowDefinition Height="1" />
+						</Grid.RowDefinitions>
+						<BoxView Color="{Binding Color}" Grid.Column="0">
+						</BoxView>
+						<StackLayout Padding="10,10,0,0" BackgroundColor="{StaticResource DarkGrayColor}" Grid.Column="1">
+						</StackLayout>
+						<StackLayout Padding="10,10,0,0" Grid.Column="1">
+							<Label Text="{Binding Title}" VerticalOptions="Center" TextColor="{StaticResource AlmostWhite}">
+							</Label>
+						</StackLayout>
+					</Grid>
+				</ViewCell>
+			</DataTemplate>
+		</ResourceDictionary>
+	</ContentPage.Resources>
 	<ContentPage.Content>
-		<ListView x:Name="lstItems"
-		ItemsSource="{Binding MenuItems}" 
-		SelectedItem="{Binding SelectedMenuItem}" BackgroundColor="Transparent" />
+		<ListView x:Name="lstItems" ItemTemplate="{StaticResource MenuItemTemplate}" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedMenuItem}" BackgroundColor="Transparent" />
 	</ContentPage.Content>
 </ContentPage>

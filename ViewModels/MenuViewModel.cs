@@ -13,6 +13,8 @@ namespace WooCommerce
 			MenuItems.Add (new MenuItem { Title = "Products", Color = (Color)Application.Current.Resources["GreenColor"], Navigate = (md) => md.Detail = new BaseNavigationPage(new ProductsPage(),"GreenColor","AlmostWhite") });
 			MenuItems.Add (new MenuItem { Title = "Orders", Color = (Color)Application.Current.Resources["BlueColor"], Navigate = (md) => md.Detail = new BaseNavigationPage(new OrdersPage(),"BlueColor","AlmostSilver")  });
 			MenuItems.Add (new MenuItem { Title = "Reports", Color =  (Color)Application.Current.Resources["OrangeColor"], Navigate = (md) => md.Detail = new BaseNavigationPage(new ReportsPage(),"OrangeColor","AlmostBlack") });
+			MenuItems.Add (new MenuItem { Title = "Settings", Color =  (Color)Application.Current.Resources["DarkGrayColor"], Navigate = (md) => md.Detail = new BaseNavigationPage(new SettingsPage(),"DarkGrayColor","AlmostWhite") });
+
 		}
 
 		ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();

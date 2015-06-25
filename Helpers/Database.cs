@@ -14,6 +14,7 @@ namespace WooCommerce
 		public Database() {
 			database = DependencyService.Get<ISQLite> ().GetConnection ();
 			database.CreateTable<CacheItem>();
+			database.CreateTable<ProductItem>();
 		}
 
 		public IEnumerable<CacheItem> GetItems () {

@@ -16,6 +16,7 @@ namespace WooCommerce
 
 		public OrdersPage ()
 		{
+			NavigationPage.SetBackButtonTitle (this, "");
 			InitializeComponent ();
 			this.BindingContext = new OrdersViewModel();
 		}

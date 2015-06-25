@@ -15,17 +15,12 @@ namespace WooCommerce
 		}
 
 		static MasterDetailPage mdMain;
-		const string clientId = "ck_85fc8233163e4d288a876b02ad16451f";
-		const string clientKey = "cs_7ccf7a5345d3f647a19a4054bbc5431a";
-		const string baseStoreUrl = "https://xamstore.azurewebsites.net/";
-		const string baseStoreUrl2 = "http://scespinho.pt/";
-		const string baseStoreUrl3 = "http://skimstore.eu/";
 
 		public App ()
 		{
 			InitializeComponent ();
 			DB = new Database ();
-			Client = new WooCommerceClient (baseStoreUrl, clientId, clientKey, DB);
+			Client = new WooCommerceClient (Constants.baseStoreUrl, Constants.clientId, Constants.clientKey, DB);
 			mdMain = new MasterDetailPage ();
 			mdMain.Master = new MenuPage () {
 				Icon = "nav_btn_md.png",

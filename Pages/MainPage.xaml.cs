@@ -15,6 +15,7 @@ namespace WooCommerce
 
 		public MainPage ()
 		{
+			NavigationPage.SetBackButtonTitle (this, "");
 			InitializeComponent ();
 			this.BindingContext = new MainViewModel ();
 		}

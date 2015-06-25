@@ -10,6 +10,7 @@ namespace WooCommerce
 
 		public ProductDetailGeneralPage ()
 		{
+			NavigationPage.SetBackButtonTitle (this, "");
 			InitializeComponent ();
 		}
 	}
