@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace WooCommerce
 {
@@ -9,20 +10,22 @@ namespace WooCommerce
 
 		public int Delay { set; get; }
 
+		public int Duration { set; get; }
+
 		public int StartsFrom { set; get; }
 
 		public int To { set; get; }
 
 		public Action Exectute { set; get; }
 
-		protected override void Invoke (VisualElement visual)
+		protected override async void Invoke (VisualElement visual)
 		{
 			if (visual.BindingContext == null)
 				return;
 
 			visual.Opacity = StartsFrom;
-			visual.FadeTo (To,(uint)Delay, Easing.Linear);
-
+			await Task.Delay(Delay);
+			await visual.FadeTo (To,(uint)Duration, Easing.Linear);
 		}
 	}
 

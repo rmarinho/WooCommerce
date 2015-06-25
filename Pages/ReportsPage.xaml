@@ -24,10 +24,10 @@
 				<oxy:PlotView.Triggers>
 					<DataTrigger TargetType="oxy:PlotView" Binding="{Binding Source={x:Reference reportPage}, Path=BindingContext.PlotDataReady}" Value="True">
 						<DataTrigger.EnterActions>
-							<local:FadeTriggerAction StartsFrom="0" To="1" Delay="2000" />
+							<local:FadeTriggerAction StartsFrom="0" To="1" Duration="2000" />
 						</DataTrigger.EnterActions>
 						<DataTrigger.ExitActions>
-							<local:FadeTriggerAction StartsFrom="1" To="0" Delay="400" />
+							<local:FadeTriggerAction StartsFrom="1" To="0" Duration="400" />
 						</DataTrigger.ExitActions>
 					</DataTrigger>
 				</oxy:PlotView.Triggers>
@@ -50,10 +50,10 @@
 					<oxy:PlotView.Triggers>
 						<DataTrigger TargetType="oxy:PlotView" Binding="{Binding Source={x:Reference reportPage}, Path=BindingContext.PlotDataReady}" Value="True">
 							<DataTrigger.EnterActions>
-								<local:FadeTriggerAction StartsFrom="0" To="1" Delay="3000" />
+								<local:FadeTriggerAction StartsFrom="0" To="1" Duration="2000" Delay="1000"/>
 							</DataTrigger.EnterActions>
 							<DataTrigger.ExitActions>
-								<local:FadeTriggerAction StartsFrom="1" To="0" Delay="400" />
+								<local:FadeTriggerAction StartsFrom="1" To="0" Duration="400" />
 							</DataTrigger.ExitActions>
 						</DataTrigger>
 					</oxy:PlotView.Triggers>
@@ -68,10 +68,10 @@
 					<oxy:PlotView.Triggers>
 						<DataTrigger TargetType="oxy:PlotView" Binding="{Binding Source={x:Reference reportPage}, Path=BindingContext.PlotDataReady}" Value="True">
 							<DataTrigger.EnterActions>
-								<local:FadeTriggerAction StartsFrom="0" To="1" Delay="4000" />
+								<local:FadeTriggerAction StartsFrom="0" To="1" Duration="2000" Delay="2000"/>
 							</DataTrigger.EnterActions>
 							<DataTrigger.ExitActions>
-								<local:FadeTriggerAction StartsFrom="1" To="0" Delay="400" />
+								<local:FadeTriggerAction StartsFrom="1" To="0" Duration="400" />
 							</DataTrigger.ExitActions>
 						</DataTrigger>
 					</oxy:PlotView.Triggers>
