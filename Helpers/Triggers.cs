@@ -7,15 +7,22 @@ namespace WooCommerce
 	{
 		public FadeTriggerAction() {}
 
+		public int Delay { set; get; }
+
 		public int StartsFrom { set; get; }
+
+		public int To { set; get; }
 
 		public Action Exectute { set; get; }
 
 		protected override void Invoke (VisualElement visual)
 		{
-			if (Exectute != null) {
-				Exectute.Invoke ();
-			}
+			if (visual.BindingContext == null)
+				return;
+
+			visual.Opacity = StartsFrom;
+			visual.FadeTo (To,(uint)Delay, Easing.Linear);
+
 		}
 	}
 

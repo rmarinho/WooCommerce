@@ -15,6 +15,7 @@ namespace WooCommerce
 		public ReportsViewModel ()
 		{
 			periodFilterOptions = new List<WooCommerceFilterPeriod> {WooCommerceFilterPeriod.Day, WooCommerceFilterPeriod.Week, WooCommerceFilterPeriod.Month, WooCommerceFilterPeriod.Year};
+			PeriodFilter = PeriodFilterOptions.ElementAt (2);
 			maxDate = DateTime.Now.Date;
 			minDate = maxDate.AddDays (-7);
 			GetData ();
@@ -36,8 +37,8 @@ namespace WooCommerce
 		List<Order> currentOrders;
 		List<TopSeller> topSellers;
 
-
 		Task UpdateTotals(){
+			PlotDataReady = false;
 			var updateSalesReportTask = UpdateSalesReport ();
 			var updateOrdersTask = UpdateOrdersNumbers ();
 			var updateTopSellersTask = UpdateTopSellers ();
@@ -58,21 +59,21 @@ namespace WooCommerce
 
 		async Task UpdateSalesReport ()
 		{
-			currentSalesReport = await App.Client.GetSalesReport (WooCommerceFilterPeriod.Month);
+			currentSalesReport = await App.Client.GetSalesReport (PeriodFilter);
 			if (currentSalesReport == null)
 				return;
 			
 			UpdateNumbersCount ();
 			AverageSales = currentSalesReport.AverageSales;
 			TotalSales = currentSalesReport.TotalSales;
-			periodFilter = Extensions.ParseEnum<WooCommerceFilterPeriod> (currentSalesReport.TotalsGroupedBy);
+			//periodFilter = Extensions.ParseEnum<WooCommerceFilterPeriod> (currentSalesReport.TotalsGroupedBy);
 			GeneratePlotModels (currentSalesReport);
 		}
 
 		async Task UpdateTopSellers ()
 		{
 			TopSellerProducts.Clear ();
-			topSellers = await App.Client.GetTopSellerReport ();
+			topSellers = await App.Client.GetTopSellerReport (PeriodFilter);
 			foreach (var topSeller in topSellers) {
 				var product = new Product ();
 				product.TotalSales = topSeller.Quantity;
