@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace WooCommerce
 {
 	public partial class ProductsPage : ContentPage
 	{
-
 		public ProductsViewModel ViewModel {
 			get{
-				return this.BindingContext as ProductsViewModel;
+				return BindingContext as ProductsViewModel;
 			}
 		}
 
 		public ProductsPage ()
 		{
 			InitializeComponent ();
-			this.BindingContext = new ProductsViewModel();
+			BindingContext = new ProductsViewModel();
 			NavigationPage.SetBackButtonTitle (this,"" );
 		}
 	}

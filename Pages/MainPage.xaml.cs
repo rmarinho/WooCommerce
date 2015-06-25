@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace WooCommerce
 {
@@ -9,17 +6,16 @@ namespace WooCommerce
 	{
 		public MainViewModel ViewModel {
 			get{
-				return this.BindingContext as MainViewModel;
+				return BindingContext as MainViewModel;
 			}
 		}
 
 		public MainPage ()
 		{
-			NavigationPage.SetBackButtonTitle (this, "");
 			InitializeComponent ();
-			this.BindingContext = new MainViewModel ();
+			BindingContext = new MainViewModel ();
+			NavigationPage.SetBackButtonTitle (this, "");
 		}
-
 	}
 }
 

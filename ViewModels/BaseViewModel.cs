@@ -47,7 +47,7 @@ namespace WooCommerce
 			}
 
 			storage = value;
-			this.NotifyPropertyChanged(propertyName);
+			NotifyPropertyChanged(propertyName);
 			return true;
 		}
 

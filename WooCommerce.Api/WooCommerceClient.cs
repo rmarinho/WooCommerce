@@ -243,7 +243,7 @@ namespace WooCommerce.Api
 			return parameters;
 		}
 
-		string ToQueryString(Dictionary<string,string> parameters)
+		static string ToQueryString(Dictionary<string,string> parameters)
 		{
 			var array = new List<string> ();
 			foreach (var parameter in parameters) {

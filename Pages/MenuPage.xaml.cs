@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-using ImageCircle.Forms.Plugin.Abstractions;
+﻿using Xamarin.Forms;
 
 namespace WooCommerce
 {
@@ -10,14 +6,14 @@ namespace WooCommerce
 	{
 		public MenuViewModel ViewModel {
 			get {
-				return this.BindingContext as MenuViewModel;
+				return BindingContext as MenuViewModel;
 			}
 		}
 
 		public MenuPage ()
 		{
 			InitializeComponent ();
-			this.BindingContext = new MenuViewModel ();
+			BindingContext = new MenuViewModel ();
 		}
 
 	}

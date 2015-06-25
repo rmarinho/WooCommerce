@@ -18,14 +18,14 @@ namespace WooCommerce
 
 		public Action Exectute { set; get; }
 
-		protected override async void Invoke (VisualElement visual)
+		protected override async void Invoke (VisualElement sender)
 		{
-			if (visual.BindingContext == null)
+			if (sender.BindingContext == null)
 				return;
 
-			visual.Opacity = StartsFrom;
+			sender.Opacity = StartsFrom;
 			await Task.Delay(Delay);
-			await visual.FadeTo (To,(uint)Duration, Easing.Linear);
+			await sender.FadeTo (To,(uint)Duration, Easing.Linear);
 		}
 	}
 
