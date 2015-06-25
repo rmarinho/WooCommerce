@@ -9,10 +9,10 @@ namespace WooCommerce
 	{
 		public MenuViewModel ()
 		{
-			MenuItems.Add (new MenuItem { Title = "Start", Navigate = (md) => md.Detail = new BaseNavigationPage(new MainPage()) });
-			MenuItems.Add (new MenuItem { Title = "Products", Navigate = (md) => md.Detail = new BaseNavigationPage(new ProductsPage()) });
-			MenuItems.Add (new MenuItem { Title = "Orders", Navigate = (md) => md.Detail = new BaseNavigationPage(new OrdersPage()) });
-			MenuItems.Add (new MenuItem { Title = "Reports", Navigate = (md) => md.Detail = new BaseNavigationPage(new ReportsPage()) });
+			MenuItems.Add (new MenuItem { Title = "Start", Color = (Color)Application.Current.Resources["GrayColor"], Navigate = (md) => md.Detail = new BaseNavigationPage(new MainPage(), "GrayColor","AlmostBlack") });
+			MenuItems.Add (new MenuItem { Title = "Products", Color = (Color)Application.Current.Resources["GreenColor"], Navigate = (md) => md.Detail = new BaseNavigationPage(new ProductsPage(),"GreenColor","AlmostWhite") });
+			MenuItems.Add (new MenuItem { Title = "Orders", Color = (Color)Application.Current.Resources["BlueColor"], Navigate = (md) => md.Detail = new BaseNavigationPage(new OrdersPage(),"BlueColor","AlmostSilver")  });
+			MenuItems.Add (new MenuItem { Title = "Reports", Color =  (Color)Application.Current.Resources["OrangeColor"], Navigate = (md) => md.Detail = new BaseNavigationPage(new ReportsPage(),"OrangeColor","AlmostBlack") });
 		}
 
 		ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
@@ -30,7 +30,7 @@ namespace WooCommerce
 					if (selectedMenuItem != null) {
 						var mdp = (MasterDetailPage)Application.Current.MainPage;
 						if (mdp != null) {
-							selectedMenuItem.Navigate (mdp	);
+							selectedMenuItem.Navigate (mdp);
 							SelectedMenuItem = null;
 							mdp.IsPresented = false;
 						}

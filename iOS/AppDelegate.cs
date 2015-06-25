@@ -47,40 +47,9 @@ namespace WooCommerce.iOS
 
 		void Preety ()
 		{
-			UIBarButtonItem.Appearance.TintColor = App.NavBarButtonTint.ToUIColor ();
-			UIBarButtonItem.Appearance.SetTitleTextAttributes (new UITextAttributes () {
-				TextColor = App.NavBarButtonTint.ToUIColor ()
-			}, UIControlState.Normal);
-			UIBarButtonItem.Appearance.SetTitleTextAttributes (new UITextAttributes () {
-				TextColor = App.NavBarTextTint.ToUIColor ()
-			}, UIControlState.Application);
-			UINavigationBar.Appearance.TintColor = App.NavBarButtonTint.ToUIColor ();
 			UINavigationBar.Appearance.SetTitleTextAttributes (new UITextAttributes () {
 				Font = UIFont.FromName ("HelveticaNeue-Light", 20),
-				TextColor = App.NavBarTextTint.ToUIColor ()
 			});
-			UINavigationBar.Appearance.SetBackgroundImage (GetColoredImage (), UIBarMetrics.Default);
-		}
-
-		private UIImage GetColoredImage()
-		{
-
-			var size = new SizeF (320, 150);
-
-			UIImage image;
-
-			UIGraphics.BeginImageContext (size);
-			using (CGContext context = UIGraphics.GetCurrentContext ()) {
-
-				var rect = new RectangleF (0, 0, size.Width, size.Height);
-
-				context.SetFillColor (App.NavBarTint.ToCGColor());
-				context.FillRect (rect);
-
-				image = UIGraphics.GetImageFromCurrentImageContext ();
-				UIGraphics.EndImageContext ();
-			}
-			return image;
 		}
 	}
 }

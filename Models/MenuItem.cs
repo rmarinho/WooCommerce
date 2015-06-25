@@ -14,6 +14,11 @@ namespace WooCommerce
 			set;
 		}
 
+		public Color Color {
+			get;
+			set;
+		}
+
 		public Action<MasterDetailPage> Navigate
 		{
 			get;

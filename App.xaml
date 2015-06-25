@@ -6,20 +6,22 @@ xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.App"
 		<ResourceDictionary>
 
 			<local:InvertBoolean x:Key="cnvInvertBoolean"></local:InvertBoolean>
+
 			<Color x:Key="GreenColor">#9db475</Color>
 			<Color x:Key="BlueColor">#20759a</Color>
 			<Color x:Key="OrangeColor">#d39828</Color>
+			<Color x:Key="GrayColor">#f8f8f8</Color>
+
+			<Color x:Key="AlmostBlack">#333</Color>
+			<Color x:Key="AlmostWhite">#FFFFFF</Color>
 			<Color x:Key="AlmostSilver">#FFCCCCCC</Color>
 			<Color x:Key="PageBackground">#FFFFFFFF</Color>
 			<Color x:Key="LightGrayColor">#EEEEEE</Color>
 			<Color x:Key="LightGrayBackgroundColor">#f7f6f7</Color>
 
-
-
 			<Style TargetType="Label">
-				<Setter Property="FontFamily" Value="Roboto-Light" />
+				<Setter Property="FontFamily" Value="Helvetica-Light" />
 			</Style>
-
 
 			<Style x:Key="ReportValueBigStyle" TargetType="Label">
 				<Setter Property="VerticalOptions" Value="End" />
