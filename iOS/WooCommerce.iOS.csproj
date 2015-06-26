@@ -175,6 +175,8 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Services.cs" />
+    <Compile Include="CustomRenderers.cs" />
+    <Compile Include="Controls\ImageGalleryUIView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="ITunesArtwork" />
@@ -187,5 +189,8 @@
     <EmbeddedResource Include="Resources\RobotoLight.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
   </ItemGroup>
 </Project>

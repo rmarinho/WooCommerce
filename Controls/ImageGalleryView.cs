@@ -18,6 +18,18 @@ namespace WooCommerce
 			}
 		}
 
+
+		public static readonly BindableProperty PathProperty = BindableProperty.Create ("Path", typeof(string), typeof(ImageGalleryView), null, BindingMode.OneWay, null, null, null, null);
+
+		public string Path {
+			get {
+				return (string)GetValue (ImageGalleryView.PathProperty);
+			}
+			set {
+				SetValue (ImageGalleryView.PathProperty, value);
+			}
+		}
+
 	}
 }
 
