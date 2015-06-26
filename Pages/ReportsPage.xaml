@@ -1,10 +1,26 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage Title="{Binding PageName}" IsBusy="{Binding IsBusy}" x:Name="reportPage" BackgroundColor="{StaticResource PageBackground}" xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms" xmlns:local="clr-namespace:WooCommerce;assembly=WooCommerce" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WooCommerce.ReportsPage">
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<Style TargetType="oxy:PlotView" x:Key="OxyPlotViewReportStyle">
+				<Style.Triggers>
+					<DataTrigger TargetType="oxy:PlotView" Binding="{Binding PlotDataReady}" Value="True">
+						<DataTrigger.EnterActions>
+							<local:FadeTriggerAction From="0" To="1" Duration="2000" />
+						</DataTrigger.EnterActions>
+						<DataTrigger.ExitActions>
+							<local:FadeTriggerAction From="1" To="0" Duration="400" />
+						</DataTrigger.ExitActions>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.Behaviors>
+		<local:FadeAnimationBehavior />
+	</ContentPage.Behaviors>
 	<ContentPage.Content>
 		<Grid>
-			<Grid.Behaviors>
-				<local:FadeAnimationBehavior />
-			</Grid.Behaviors>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="0.15*" />
 				<RowDefinition Height="0.15*" />
@@ -20,62 +36,26 @@
 				<Label Text="{Binding TotalSales}" TextColor="{StaticResource GreenColor}" FontSize="22" HorizontalOptions="Start" VerticalOptions="Start" XAlign="Start" YAlign="Start" />
 				<Label Text="Revenue" TextColor="Gray" FontSize="14" HorizontalOptions="Start" VerticalOptions="Start" XAlign="Start" YAlign="Start" />
 			</StackLayout>
-			<oxy:PlotView x:Name="oxyPlotViewSales" Model="{Binding SalesPlotModel}" IsEnabled="{Binding PlotDataReady}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="1">
-				<oxy:PlotView.Triggers>
-					<DataTrigger TargetType="oxy:PlotView" Binding="{Binding Source={x:Reference reportPage}, Path=BindingContext.PlotDataReady}" Value="True">
-						<DataTrigger.EnterActions>
-							<local:FadeTriggerAction StartsFrom="0" To="1" Duration="2000" />
-						</DataTrigger.EnterActions>
-						<DataTrigger.ExitActions>
-							<local:FadeTriggerAction StartsFrom="1" To="0" Duration="400" />
-						</DataTrigger.ExitActions>
-					</DataTrigger>
-				</oxy:PlotView.Triggers>
-			</oxy:PlotView>
+			<oxy:PlotView x:Name="oxyPlotViewSales" Style="{StaticResource OxyPlotViewReportStyle}" Model="{Binding SalesPlotModel}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="1" />
 			<BoxView Grid.ColumnSpan="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Color="{StaticResource LightGrayColor}" />
 			<StackLayout Orientation="Vertical" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Padding="0,0,0,0" IsVisible="false">
-				<Picker x:Name="filterOptions">
-				</Picker>
-				<DatePicker x:Name="filterOptionMinDate" Date="{Binding MinDate}" MaximumDate="{Binding MaxDate}">
-				</DatePicker>
-				<DatePicker x:Name="filterOptionMaxDate" Date="{Binding MaxDate}" MinimumDate="{Binding MinDate}">
-				</DatePicker>
+				<Picker x:Name="filterOptions" />
+				<DatePicker x:Name="filterOptionMinDate" Date="{Binding MinDate}" MaximumDate="{Binding MaxDate}" />
+				<DatePicker x:Name="filterOptionMaxDate" Date="{Binding MaxDate}" MinimumDate="{Binding MinDate}" />
 			</StackLayout>
 			<StackLayout x:Name="stkOrders" Grid.Row="1" Grid.Column="0" Padding="20,0,0,10">
 				<StackLayout Orientation="Horizontal">
 					<Label Text="{Binding NewOrdersCount}" TextColor="{StaticResource BlueColor}" FontSize="22" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" YAlign="Start" />
 					<Label Text="New Orders" TextColor="Gray" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" YAlign="Start" />
 				</StackLayout>
-				<oxy:PlotView x:Name="oxyPlotViewOrders" Model="{Binding NewOrdersPlotModel}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-					<oxy:PlotView.Triggers>
-						<DataTrigger TargetType="oxy:PlotView" Binding="{Binding Source={x:Reference reportPage}, Path=BindingContext.PlotDataReady}" Value="True">
-							<DataTrigger.EnterActions>
-								<local:FadeTriggerAction StartsFrom="0" To="1" Duration="2000" Delay="1000"	/>
-							</DataTrigger.EnterActions>
-							<DataTrigger.ExitActions>
-								<local:FadeTriggerAction StartsFrom="1" To="0" Duration="400" />
-							</DataTrigger.ExitActions>
-						</DataTrigger>
-					</oxy:PlotView.Triggers>
-				</oxy:PlotView>
+				<oxy:PlotView x:Name="oxyPlotViewOrders" local:FadeTrigger.Delay="1000" Style="{StaticResource OxyPlotViewReportStyle}" Model="{Binding NewOrdersPlotModel}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
 			</StackLayout>
 			<StackLayout x:Name="stkCustomers" Grid.Row="1" Grid.Column="1" Padding="10,0,0,10">
 				<StackLayout Orientation="Horizontal">
 					<Label Text="{Binding NewCustomersCount}" TextColor="{StaticResource OrangeColor}" FontSize="22" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" YAlign="Start" />
 					<Label Text="New Customers" TextColor="Gray" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" YAlign="Start" />
 				</StackLayout>
-				<oxy:PlotView x:Name="oxyPlotViewCustomers" Model="{Binding NewCustomersPlotModel}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-					<oxy:PlotView.Triggers>
-						<DataTrigger TargetType="oxy:PlotView" Binding="{Binding Source={x:Reference reportPage}, Path=BindingContext.PlotDataReady}" Value="True">
-							<DataTrigger.EnterActions>
-								<local:FadeTriggerAction StartsFrom="0" To="1" Duration="2000" Delay="2000"/>
-							</DataTrigger.EnterActions>
-							<DataTrigger.ExitActions>
-								<local:FadeTriggerAction StartsFrom="1" To="0" Duration="400" />
-							</DataTrigger.ExitActions>
-						</DataTrigger>
-					</oxy:PlotView.Triggers>
-				</oxy:PlotView>
+				<oxy:PlotView x:Name="oxyPlotViewCustomers" local:FadeTrigger.Delay="2000" Style="{StaticResource OxyPlotViewReportStyle}" Model="{Binding NewCustomersPlotModel}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
 			</StackLayout>
 			<BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Color="{StaticResource LightGrayColor}" />
 			<ContentView Padding="20,5,20,5" Grid.Row="2">
@@ -103,7 +83,14 @@
 				<Label Text="{Binding CompletedOrdersCount}" Grid.Row="0" Grid.Column="3" Style="{StaticResource ReportValueBigStyle}" />
 				<Label Text="Completed Orders" Grid.Row="1" Grid.Column="3" Style="{StaticResource ReportLabelStyle}" />
 			</Grid>
-			<ActivityIndicator Grid.ColumnSpan="2" Grid.RowSpan="5" IsRunning="{Binding IsBusy}" IsVisible="{Binding PlotDataReady, Converter={StaticResource cnvInvertBoolean}}" HorizontalOptions="Center" VerticalOptions="Center">
+			<ActivityIndicator Grid.ColumnSpan="2" Grid.RowSpan="5" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" >
+			<ActivityIndicator.Triggers>
+					<DataTrigger TargetType="ActivityIndicator" Binding="{Binding PlotDataReady}" Value="True">
+						<DataTrigger.EnterActions>
+							<local:FadeTriggerAction From="1" To="0" Duration="2000" />
+						</DataTrigger.EnterActions>
+					</DataTrigger>
+				</ActivityIndicator.Triggers>
 			</ActivityIndicator>
 		</Grid>
 	</ContentPage.Content>

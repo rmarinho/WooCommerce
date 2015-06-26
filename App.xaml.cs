@@ -26,7 +26,7 @@ namespace WooCommerce
 				Icon = "nav_btn_md.png",
 				Title = " "
 			};
-			mdMain.Detail = new BaseNavigationPage(new ProductsPage(),"GreenColor","AlmostSilver");
+			mdMain.Detail = new BaseNavigationPage(new ProductsPage(),"GreenColor","AlmostWhite");
 			MainPage = mdMain;
 		}
 

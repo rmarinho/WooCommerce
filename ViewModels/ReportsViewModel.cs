@@ -38,7 +38,6 @@ namespace WooCommerce
 		List<TopSeller> topSellers;
 
 		Task UpdateTotals(){
-			PlotDataReady = false;
 			var updateSalesReportTask = UpdateSalesReport ();
 			var updateOrdersTask = UpdateOrdersNumbers ();
 			var updateTopSellersTask = UpdateTopSellers ();

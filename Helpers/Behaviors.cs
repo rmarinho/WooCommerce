@@ -8,7 +8,7 @@ namespace WooCommerce
 		protected override async void OnAttachedTo(VisualElement element)
 		{
 			element.Opacity = 0;
-			await element.FadeTo (1,1000);
+			await element.FadeTo (1,2000);
 			base.OnAttachedTo(element);
 		}
 
