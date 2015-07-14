@@ -5,7 +5,6 @@ using CoreGraphics;
 using Foundation;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
-using System.Drawing;
 
 namespace WooCommerce.iOS
 {
@@ -71,10 +70,7 @@ namespace WooCommerce.iOS
 			Add (pageControl);
 		}
 
-		void PageControlValueChanged (object sender, EventArgs e)
-		{
-			UpdateScrollPositionBasedOnPageControl ();
-		}
+
 
 		public void ClearImages ()
 		{
@@ -137,6 +133,12 @@ namespace WooCommerce.iOS
 			}
 			scroller.ContentSize = new CGSize (scroller.Frame.Width * curr - 1, scroller.Frame.Height);
 			pageControl.Pages = curr;
+		}
+
+
+		void PageControlValueChanged (object sender, EventArgs e)
+		{
+			UpdateScrollPositionBasedOnPageControl ();
 		}
 
 		void AddImage (CGRect rect, nint position, string im)

@@ -15,7 +15,7 @@ namespace WooCommerce
 		public ReportsViewModel ()
 		{
 			periodFilterOptions = new List<WooCommerceFilterPeriod> {WooCommerceFilterPeriod.Day, WooCommerceFilterPeriod.Week, WooCommerceFilterPeriod.Month, WooCommerceFilterPeriod.Year};
-			PeriodFilter = PeriodFilterOptions.ElementAt (2);
+			PeriodFilter = PeriodFilterOptions.ElementAt (3);
 			maxDate = DateTime.Now.Date;
 			minDate = maxDate.AddDays (-7);
 			GetData ();
